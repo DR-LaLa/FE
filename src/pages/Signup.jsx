@@ -1,13 +1,13 @@
 import { useState } from "react";
 import FormFrame from "../components/common/FormFrame";
 import styled from "styled-components";
-import HeaderClose from "../components/common/HeaderClose";
+import Header from "../components/common/Header";
 
 export default function SignUp() {
   let [passwordCheck, setPasswordCheck] = useState("a");
   return (
     <>
-      <HeaderClose />
+      <Header />
       <main>
         <FormFrame>
           <InputBox>

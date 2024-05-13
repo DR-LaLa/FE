@@ -45,8 +45,9 @@ const SettingTool = styled.section`
   justify-content: space-evenly;
   align-items: center;
   animation-name: showText;
-  animation-iteration-count: 0.8s;
+  animation-iteration-count: 1;
   animation-duration: 1s;
+  transition-duration: 1s;
 
   @keyframes showText {
     0% {
@@ -55,7 +56,7 @@ const SettingTool = styled.section`
     }
     50% {
       display: none;
-      color: transparent;
+      color: #00000070;
     }
     100% {
       color: black;

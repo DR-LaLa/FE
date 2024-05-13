@@ -12,6 +12,7 @@ export default function FormFrame(props) {
   const currentPage = useLocation().pathname;
 
   const USERNAME = "userName";
+
   async function fetchPost(body) {
     try {
       const response = await fetch(`${currentPage == "/signup" ? "" : "json/login.json"}`, {
@@ -31,6 +32,7 @@ export default function FormFrame(props) {
       console.log(err);
     }
   }
+
   return (
     <>
       <Form action="">
@@ -38,7 +40,6 @@ export default function FormFrame(props) {
         <SubmitBtn
           onClick={(e) => {
             e.preventDefault();
-
             if (currentPage == "/signup") {
               fetchPost(signUpInpo);
               navigate("/login");

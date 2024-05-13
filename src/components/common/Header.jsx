@@ -133,6 +133,7 @@ const HeaderStyle = styled.header`
 
   @keyframes setToHome {
     0% {
+      visibility: hidden;
       width: 30vw;
     }
     100% {
@@ -157,6 +158,23 @@ const IconBox = styled.section`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  animation-name: show;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+
+  @keyframes show {
+    0% {
+      display: none;
+      color: transparent;
+    }
+    50% {
+      display: none;
+      color: #00000070;
+    }
+    100% {
+      color: black;
+    }
+  }
 `;
 
 const Icon = styled.div`

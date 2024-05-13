@@ -1,14 +1,57 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { LoginContext, SignupContext } from "../../context/context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function FormFrame(props) {
+  const { signUpInpo, updateSignUpInpo } = useContext(SignupContext);
+  const { loginInpo, updateLoginInpo } = useContext(LoginContext);
+  const [userName, setUserName] = useState("");
+
+  const navigate = useNavigate();
+  const currentPage = useLocation().pathname;
+
   return (
     <>
       <Form action="">
         {props.children}
-        <SubmitBtn>확인</SubmitBtn>
+        <SubmitBtn
+          onClick={(e) => {
+            e.preventDefault();
+
+            if (currentPage == "/signup") {
+              fetchPost(signUpInpo, navigate, currentPage);
+            } else {
+              // fetchPost(loginInpo);
+            }
+          }}
+        >
+          확인
+        </SubmitBtn>
       </Form>
     </>
   );
+}
+const USERNAME = "userName";
+async function fetchPost(body, navigate, currentPage) {
+  try {
+    const response = await fetch("http://localhost:8080/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    let data = await response.json();
+    localStorage.setItem(USERNAME, data.nickname);
+    if (currentPage == "/signup") {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 const Form = styled.form`

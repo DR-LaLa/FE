@@ -29,15 +29,45 @@ const CloudBox = styled.div`
   width: 280px;
   height: 160px;
   position: absolute;
-  top: 2vh;
+  top: 5vh;
   left: 15vw;
+  animation-name: move1;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+
+  @keyframes move1 {
+    0% {
+      top: 5vh;
+    }
+    50% {
+      top: 10vh;
+    }
+    100% {
+      top: 5vh;
+    }
+  }
 `;
 
 const CloudBox2 = styled.div`
   width: 280px;
   height: 160px;
   position: absolute;
-  top: 20vh;
+  top: 15vh;
+  animation-name: move2;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+
+  @keyframes move2 {
+    0% {
+      top: 15vh;
+    }
+    50% {
+      top: 20vh;
+    }
+    100% {
+      top: 15vh;
+    }
+  }
 `;
 
 const CloudBox3 = styled.div`
@@ -45,8 +75,22 @@ const CloudBox3 = styled.div`
   height: 160px;
   position: absolute;
   top: 7vh;
-  right: 0;
-  z-index: 3;
+  right: 3vh;
+  animation-name: move3;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+
+  @keyframes move3 {
+    0% {
+      top: 7vh;
+    }
+    50% {
+      top: 12vh;
+    }
+    100% {
+      top: 7vh;
+    }
+  }
 `;
 
 const Cloud1 = styled.div`

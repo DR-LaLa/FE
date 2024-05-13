@@ -20,6 +20,8 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  right: 3.5vw;
   background-color: rgba(255, 255, 255, 0.66);
   box-shadow: 3px 8px 15px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(25px);

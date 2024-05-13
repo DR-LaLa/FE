@@ -19,12 +19,12 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100vh;
     position: relative;
-    background-color: #D5F0FF;
+    background-color: #c6ebff;
   }
   body::after{
     content: "";
     width: 100%;
-    height: 20%;
+    height: 25vh;
     display: block;
     position: absolute;
     bottom: 0;
@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
   
   #root{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

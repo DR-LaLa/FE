@@ -2,32 +2,41 @@ import { useState } from "react";
 import FormFrame from "../components/common/FormFrame";
 import styled from "styled-components";
 import Header from "../components/common/Header";
+import MainFrame from "../components/common/MainFrame";
 
 export default function SignUp() {
   let [passwordCheck, setPasswordCheck] = useState("a");
   return (
     <>
-      <Header />
-      <main>
+      <Header show={"false"} />
+      <MainFrame>
         <FormFrame>
           <InputBox>
-            <Span>NAME</Span>
-            <Input type="text" />
-            <IdBox>
-              <Span>ID</Span>
-              <DuplicationCheck>중복확인</DuplicationCheck>
-            </IdBox>
-            <Input type="text" />
-            <Span>PASSWORD</Span>
-            <Input type="password" />
-            <Span>PASSWORD CHECK</Span>
-            <Input type="password" name="" id="" />
-            <PasswordCheckTxt $flag={passwordCheck}>
-              {!passwordCheck != "true  " ? "비밀번호가 틀립니다" : "."}
-            </PasswordCheckTxt>
+            <section>
+              <Label>NAME</Label>
+              <Input type="text" placeholder="ex) 라틴킹" />
+            </section>
+            <section>
+              <IdBox>
+                <Label>ID</Label>
+                <DuplicationCheck>중복확인</DuplicationCheck>
+              </IdBox>
+              <Input type="text" placeholder="id를 적어주세요" />
+            </section>
+            <section>
+              <Label>PASSWORD</Label>
+              <Input type="password" placeholder="비밀번호를 입력해주세요" />
+            </section>
+            <section>
+              <Label>PASSWORD CHECK</Label>
+              <Input type="password" name="" id="" placeholder="비밀" />
+              <PasswordCheckTxt $flag={passwordCheck}>
+                {!passwordCheck != "true  " ? "비밀번호가 틀립니다" : "."}
+              </PasswordCheckTxt>
+            </section>
           </InputBox>
         </FormFrame>
-      </main>
+      </MainFrame>
     </>
   );
 }
@@ -40,13 +49,12 @@ const InputBox = styled.section`
   justify-content: space-evenly;
 `;
 
-const Span = styled.span`
-  /* margin-bottom: 7px; */
+const Label = styled.label`
   font-size: 17px;
 `;
 
 const Input = styled.input`
-  /* margin-bottom: 15px; */
+  margin: 5px 0 10px 0;
   width: 380px;
   height: 30px;
   border: none;
@@ -60,8 +68,6 @@ const Input = styled.input`
 
 const PasswordCheckTxt = styled.p`
   font-size: 11px;
-  position: relative;
-  bottom: 1vh;
   color: red;
   visibility: ${(props) => (props.$flag == "true" ? "hidden" : "visible")};
 `;

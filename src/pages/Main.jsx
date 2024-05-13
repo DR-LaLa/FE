@@ -13,23 +13,7 @@ export default function Main() {
 }
 
 const Img = styled.img`
-  width: 40vw;
+  width: 35vw;
   position: relative;
-  /* top: 5vh; */
-  animation-name: move;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  transition-duration: 0.5s;
-
-  @keyframes move {
-    0% {
-      top: 5vh;
-    }
-    50% {
-      top: -3vh;
-    }
-    100% {
-      top: 5vh;
-    }
-  }
+  top: 5vh;
 `;

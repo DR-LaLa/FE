@@ -1,16 +1,46 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { PiRankingFill } from "react-icons/pi";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { IoMdSettings } from "react-icons/io";
 
-export default function Header() {
-  let [show, setShow] = useState(false);
+export default function Header(props) {
+  const iconArr = [
+    {
+      key: 1,
+      iconName: <IoGameControllerOutline />,
+    },
+    {
+      key: 2,
+      iconName: <PiRankingFill />,
+    },
+    {
+      key: 3,
+      iconName: <RiContactsBook2Fill />,
+    },
+    {
+      key: 4,
+      iconName: <IoMdSettings />,
+    },
+  ];
   return (
     <>
-      {show && (
+      {props.show == "true" && (
         <HeaderStyle>
-          <Logo>LOGO</Logo>
+          <Logo $show={props.show}>LOGO</Logo>
+          <IconBox>
+            {iconArr.map((icon) => (
+              <Icon>{icon.iconName}</Icon>
+            ))}
+            {/* <GameIcon />
+            <PiRankingFill />
+            <RiContactsBook2Fill />
+            <IoMdSettings /> */}
+          </IconBox>
         </HeaderStyle>
       )}
-      {!show && <Logo>LOGO</Logo>}
+      {props.show == "false" && <Logo>LOGO</Logo>}
     </>
   );
 }
@@ -20,6 +50,7 @@ const HeaderStyle = styled.header`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   position: absolute;
   left: 0;
@@ -41,7 +72,25 @@ const HeaderStyle = styled.header`
 `;
 
 const Logo = styled.h1`
-  position: absolute;
+  font-size: 40px;
+  position: ${(props) => (props.$show == "true" ? "relative" : "absolute")};
   top: 5vh;
-  left: 4.7vw;
+  left: ${(props) => (props.$show == "true" ? "0.7vw" : "4.7vw")};
+`;
+
+const IconBox = styled.section`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const Icon = styled.div`
+  font-size: 65px;
+  &&:hover {
+    color: #ff9748;
+    cursor: pointer;
+  }
 `;

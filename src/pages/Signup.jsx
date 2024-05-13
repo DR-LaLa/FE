@@ -7,7 +7,7 @@ export default function SignUp() {
   let [passwordCheck, setPasswordCheck] = useState("a");
   return (
     <>
-      <Header />
+      <Header show={"flase"} />
       <main>
         <FormFrame>
           <InputBox>

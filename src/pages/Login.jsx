@@ -5,10 +5,10 @@ import Header from "../components/common/Header";
 export default function Login() {
   return (
     <>
-      <Header />
+      <Header show={"false"} />
       <main>
         <FormFrame>
-          <h1>LOGIN</h1>
+          <Title>LOGIN</Title>
           <InputBox>
             <section>
               <Label htmlFor="">ID</Label>
@@ -29,6 +29,12 @@ export default function Login() {
     </>
   );
 }
+
+const Title = styled.h1`
+  font-size: 35px;
+  letter-spacing: 5px;
+  color: #ff9748;
+`;
 
 const InputBox = styled.section`
   width: 380px;

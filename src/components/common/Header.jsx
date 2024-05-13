@@ -1,52 +1,100 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiRankingFill } from "react-icons/pi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
+import { useLocation, useNavigate } from "react-router-dom";
+import { MainContext } from "../../context/context";
 
 export default function Header(props) {
-  const iconArr = [
-    {
-      key: 1,
-      iconName: <IoGameControllerOutline />,
-    },
-    {
-      key: 2,
-      iconName: <PiRankingFill />,
-    },
-    {
-      key: 3,
-      iconName: <RiContactsBook2Fill />,
-    },
-    {
-      key: 4,
-      iconName: <IoMdSettings />,
-    },
-  ];
+  const { anime, setAnime } = useContext(MainContext);
+  const navigate = useNavigate();
+  const currentPage = useLocation().pathname;
+  const ANIME = "anime";
+
+  useEffect(() => {
+    if (localStorage.getItem(ANIME)) {
+      setAnime(localStorage.getItem(ANIME));
+      // localStorage.removeItem(ANIME);
+    }
+  }, []);
+
   return (
     <>
       {props.show == "true" && (
-        <HeaderStyle>
-          <Logo $show={props.show}>LOGO</Logo>
-          <IconBox>
-            {iconArr.map((icon) => (
-              <Icon>{icon.iconName}</Icon>
-            ))}
-            {/* <GameIcon />
-            <PiRankingFill />
-            <RiContactsBook2Fill />
-            <IoMdSettings /> */}
-          </IconBox>
+        <HeaderStyle $settingAnime={props.anime} $homeAnime={anime}>
+          <Logo
+            $show={props.show}
+            onClick={() => {
+              if (currentPage == "/setting") {
+                localStorage.setItem(ANIME, "set");
+              }
+              navigate("/");
+            }}
+          >
+            LOGO
+          </Logo>
+          {props.anime != "setting" ? (
+            <IconBox>
+              {iconArr.map((icon) => (
+                <Icon
+                  onClick={() => {
+                    if (icon.name == "setting") {
+                      navigate("/setting");
+                    }
+                  }}
+                  key={icon.key}
+                  $icon={icon.name}
+                >
+                  {icon.component}
+                </Icon>
+              ))}
+            </IconBox>
+          ) : (
+            <>{props.children}</>
+          )}
         </HeaderStyle>
       )}
-      {props.show == "false" && <Logo>LOGO</Logo>}
+      {props.show == "false" && (
+        <Logo
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          LOGO
+        </Logo>
+      )}
     </>
   );
 }
 
+const iconArr = [
+  {
+    key: 1,
+    component: <IoGameControllerOutline />,
+    name: "game",
+  },
+  {
+    key: 2,
+    component: <PiRankingFill />,
+    name: "rank",
+  },
+  {
+    key: 3,
+    component: <RiContactsBook2Fill />,
+    name: "book",
+  },
+  {
+    key: 4,
+    component: <IoMdSettings />,
+    name: "setting",
+  },
+];
+
 const HeaderStyle = styled.header`
-  width: 15vw;
+  /* width: 30vw; */
+  width: ${(props) => (props.$settingAnime == "setting" ? "30vw" : "15vw")};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -57,6 +105,11 @@ const HeaderStyle = styled.header`
   background: rgba(255, 255, 255, 0.8);
   filter: drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25));
   backdrop-filter: blur(40px);
+  z-index: 3;
+  animation-name: ${(props) =>
+    props.$settingAnime == "setting" ? "bigger" : props.$homeAnime == "set" ? "setToHome" : ""};
+  animation-iteration-count: 1;
+  animation-duration: 1s;
 
   &&::after {
     content: "";
@@ -65,17 +118,36 @@ const HeaderStyle = styled.header`
     border-radius: 0 20px 20px 0;
     display: block;
     position: absolute;
-    left: 230px;
-    border-radius: 0px 25px 25px 0px;
+    right: -76.5px;
     background: rgba(255, 255, 255, 0.8);
+  }
+
+  @keyframes bigger {
+    0% {
+      width: 15vw;
+    }
+    100% {
+      width: 30vw;
+    }
+  }
+
+  @keyframes setToHome {
+    0% {
+      width: 30vw;
+    }
+    100% {
+      width: 15vw;
+    }
   }
 `;
 
 const Logo = styled.h1`
   font-size: 40px;
-  position: ${(props) => (props.$show == "true" ? "relative" : "absolute")};
-  top: 5vh;
+  cursor: pointer;
+  position: relative;
+  top: ${(props) => (props.$show == "true" ? "5vh" : "-41.7vh")};
   left: ${(props) => (props.$show == "true" ? "0.7vw" : "4.7vw")};
+  z-index: 3;
 `;
 
 const IconBox = styled.section`

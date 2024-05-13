@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import FormFrame from "../components/common/FormFrame";
 import Header from "../components/common/Header";
+import MainFrame from "../components/common/MainFrame";
 
 export default function Login() {
   return (
     <>
       <Header show={"false"} />
-      <main>
+      <MainFrame>
         <FormFrame>
           <Title>LOGIN</Title>
           <InputBox>
@@ -25,7 +26,7 @@ export default function Login() {
             </section>
           </InputBox>
         </FormFrame>
-      </main>
+      </MainFrame>
     </>
   );
 }

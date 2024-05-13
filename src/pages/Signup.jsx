@@ -2,13 +2,14 @@ import { useState } from "react";
 import FormFrame from "../components/common/FormFrame";
 import styled from "styled-components";
 import Header from "../components/common/Header";
+import MainFrame from "../components/common/MainFrame";
 
 export default function SignUp() {
   let [passwordCheck, setPasswordCheck] = useState("a");
   return (
     <>
-      <Header show={"flase"} />
-      <main>
+      <Header show={"false"} />
+      <MainFrame>
         <FormFrame>
           <InputBox>
             <section>
@@ -35,7 +36,7 @@ export default function SignUp() {
             </section>
           </InputBox>
         </FormFrame>
-      </main>
+      </MainFrame>
     </>
   );
 }

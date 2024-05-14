@@ -11,6 +11,28 @@ export default function FormFrame(props) {
   const navigate = useNavigate();
   const currentPage = useLocation().pathname;
 
+  const USERNAME = "userName";
+
+  async function fetchPost(body) {
+    try {
+      const response = await fetch(`${currentPage == "/signup" ? "" : "json/login.json"}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      let data = await response.json();
+      localStorage.setItem(USERNAME, data.nickname);
+      if (currentPage == "/login") navigate("/");
+      else {
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <Form action="">
@@ -18,11 +40,11 @@ export default function FormFrame(props) {
         <SubmitBtn
           onClick={(e) => {
             e.preventDefault();
-
             if (currentPage == "/signup") {
-              fetchPost(signUpInpo, navigate, currentPage);
+              fetchPost(signUpInpo);
+              navigate("/login");
             } else {
-              // fetchPost(loginInpo);
+              fetchPost(loginInpo);
             }
           }}
         >
@@ -31,27 +53,6 @@ export default function FormFrame(props) {
       </Form>
     </>
   );
-}
-const USERNAME = "userName";
-async function fetchPost(body, navigate, currentPage) {
-  try {
-    const response = await fetch("http://localhost:8080/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    let data = await response.json();
-    localStorage.setItem(USERNAME, data.nickname);
-    if (currentPage == "/signup") {
-      navigate("/login");
-    } else {
-      navigate("/");
-    }
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 const Form = styled.form`

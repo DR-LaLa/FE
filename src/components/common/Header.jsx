@@ -16,7 +16,7 @@ export default function Header(props) {
   useEffect(() => {
     if (localStorage.getItem(ANIME)) {
       setAnime(localStorage.getItem(ANIME));
-      // localStorage.removeItem(ANIME);
+      localStorage.removeItem(ANIME);
     }
   }, []);
 
@@ -36,7 +36,7 @@ export default function Header(props) {
             LOGO
           </Logo>
           {props.anime != "setting" ? (
-            <IconBox>
+            <IconBox $homeAnime={anime}>
               {iconArr.map((icon) => (
                 <Icon
                   onClick={() => {
@@ -158,8 +158,8 @@ const IconBox = styled.section`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  animation-name: show;
-  animation-duration: 1s;
+  animation-name: ${(props) => (props.$homeAnime == "set" ? "show" : "")};
+  animation-duration: 0.6s;
   animation-iteration-count: 1;
 
   @keyframes show {

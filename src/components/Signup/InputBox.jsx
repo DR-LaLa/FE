@@ -30,7 +30,7 @@ export default function InputBox() {
           <DuplicationCheck
             onClick={(e) => {
               e.preventDefault();
-              // fetchGet(userId);
+              fetchGet(userId, "http//localhost:8080/signup/confirmid");
             }}
           >
             중복확인
@@ -87,9 +87,9 @@ export default function InputBox() {
     </InputBoxStyle>
   );
 }
-async function fetchGet(body) {
+async function fetchGet(body, url) {
   try {
-    const response = await fetch(`http://localhost:8080/signup`, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

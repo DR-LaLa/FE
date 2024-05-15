@@ -10,4 +10,6 @@ const signUpObj = {
   loginid: "",
   password: "",
   nickname: "",
+  count: 0,
+  level: 0,
 };

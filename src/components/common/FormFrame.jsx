@@ -23,7 +23,7 @@ export default function FormFrame(props) {
         body: JSON.stringify(body),
       });
       let data = await response.json();
-      localStorage.setItem(USERNAME, data.nickname);
+      localStorage.setItem(USERNAME, JSON.stringify(data));
       if (currentPage == "/login") navigate("/");
       else {
         navigate("/login");
@@ -41,6 +41,7 @@ export default function FormFrame(props) {
           onClick={(e) => {
             e.preventDefault();
             if (currentPage == "/signup") {
+              console.log(signUpInpo);
               fetchPost(signUpInpo);
               navigate("/login");
             } else {

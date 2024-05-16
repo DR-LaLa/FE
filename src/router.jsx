@@ -3,6 +3,7 @@ import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Setting from "./pages/Setting";
+import Quiz from "./pages/Quiz";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/setting",
     element: <Setting />,
+  },
+  {
+    path: "/quiz",
+    element: <Quiz />,
   },
 ]);
 

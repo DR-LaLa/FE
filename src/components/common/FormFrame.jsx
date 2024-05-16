@@ -15,7 +15,7 @@ export default function FormFrame(props) {
 
   async function fetchPost(body) {
     try {
-      const response = await fetch(`${currentPage == "/signup" ? "" : "json/login.json"}`, {
+      const response = await fetch(`${currentPage == "/signup" ? "" : "http://localhost:8080/signin"}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export default function FormFrame(props) {
         body: JSON.stringify(body),
       });
       let data = await response.json();
-      localStorage.setItem(USERNAME, data.nickname);
+      localStorage.setItem(USERNAME, JSON.stringify(data));
       if (currentPage == "/login") navigate("/");
       else {
         navigate("/login");
@@ -41,6 +41,7 @@ export default function FormFrame(props) {
           onClick={(e) => {
             e.preventDefault();
             if (currentPage == "/signup") {
+              console.log(signUpInpo);
               fetchPost(signUpInpo);
               navigate("/login");
             } else {
@@ -65,7 +66,6 @@ const Form = styled.form`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  right: 3.5vw;
   background-color: rgba(255, 255, 255, 0.66);
   box-shadow: 3px 8px 15px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(25px);

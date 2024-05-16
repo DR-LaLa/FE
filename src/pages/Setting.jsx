@@ -7,7 +7,9 @@ import MainProvider from "../provider/MainProvider";
 export default function Setting() {
   const USERNAME = "userName";
   const [level, setLevel] = useState("1");
-  const [userName, setUserName] = useState(localStorage.getItem(USERNAME) ? localStorage.getItem(USERNAME) : "");
+  const [userName, setUserName] = useState(
+    localStorage.getItem(USERNAME) ? JSON.parse(localStorage.getItem(USERNAME)).nickname : ""
+  );
 
   async function setFetch() {
     try {

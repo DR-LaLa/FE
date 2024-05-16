@@ -23,7 +23,7 @@ export default function Header(props) {
   return (
     <>
       {props.show == "true" && (
-        <HeaderStyle $settingAnime={props.anime} $homeAnime={anime}>
+        <HeaderStyle $settingAnime={props.anime} $homeAnime={anime} $show={props.show}>
           <Logo
             $show={props.show}
             onClick={() => {
@@ -42,6 +42,8 @@ export default function Header(props) {
                   onClick={() => {
                     if (icon.name == "setting") {
                       navigate("/setting");
+                    } else if (icon.name == "quiz") {
+                      navigate("/quiz");
                     }
                   }}
                   key={icon.key}
@@ -57,13 +59,15 @@ export default function Header(props) {
         </HeaderStyle>
       )}
       {props.show == "false" && (
-        <Logo
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          LOGO
-        </Logo>
+        <HeaderStyle>
+          <Logo
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            LOGO
+          </Logo>
+        </HeaderStyle>
       )}
     </>
   );
@@ -73,7 +77,7 @@ const iconArr = [
   {
     key: 1,
     component: <IoGameControllerOutline />,
-    name: "game",
+    name: "quiz",
   },
   {
     key: 2,
@@ -102,9 +106,9 @@ const HeaderStyle = styled.header`
   align-items: center;
   position: absolute;
   left: 0;
-  background: rgba(255, 255, 255, 0.8);
-  filter: drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25));
-  backdrop-filter: blur(40px);
+  background: ${(props) => (props.$show == "true" ? "rgba(255, 255, 255, 0.8)" : "transparent")};
+  filter: ${(props) => (props.$show == "true" ? "drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25))" : "transparent")};
+  backdrop-filter: ${(props) => (props.$show == "true" ? "blur(40px)" : "")};
   z-index: 3;
   animation-name: ${(props) =>
     props.$settingAnime == "setting" ? "bigger" : props.$homeAnime == "set" ? "setToHome" : ""};
@@ -116,7 +120,7 @@ const HeaderStyle = styled.header`
     width: 5vw;
     height: 25vh;
     border-radius: 0 20px 20px 0;
-    display: block;
+    display: ${(props) => (props.$show == "true" ? "block" : "none")};
     position: absolute;
     right: -76.5px;
     background: rgba(255, 255, 255, 0.8);
@@ -143,11 +147,12 @@ const HeaderStyle = styled.header`
 `;
 
 const Logo = styled.h1`
+  color: #ff9748;
   font-size: 40px;
-  cursor: pointer;
   position: relative;
-  top: ${(props) => (props.$show == "true" ? "5vh" : "-41.7vh")};
-  left: ${(props) => (props.$show == "true" ? "0.7vw" : "4.7vw")};
+  top: 5vh;
+  left: 0.7vw;
+  cursor: pointer;
   z-index: 3;
 `;
 

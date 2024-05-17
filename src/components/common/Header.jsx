@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiRankingFill } from "react-icons/pi";
 import { RiContactsBook2Fill } from "react-icons/ri";
@@ -19,6 +19,8 @@ export default function Header(props) {
       localStorage.removeItem(ANIME);
     }
   }, []);
+
+  // console.log(props.anime);
 
   return (
     <>
@@ -62,6 +64,9 @@ export default function Header(props) {
         <HeaderStyle>
           <Logo
             onClick={() => {
+              if (currentPage == "/quiz") {
+                localStorage.setItem(ANIME, "quiz");
+              }
               navigate("/");
             }}
           >
@@ -111,7 +116,15 @@ const HeaderStyle = styled.header`
   backdrop-filter: ${(props) => (props.$show == "true" ? "blur(40px)" : "")};
   z-index: 3;
   animation-name: ${(props) =>
-    props.$settingAnime == "setting" ? "bigger" : props.$homeAnime == "set" ? "setToHome" : ""};
+    props.$settingAnime == "setting"
+      ? "bigger"
+      : props.$settingAnime == "quiz"
+      ? "invisiable"
+      : props.$homeAnime == "set"
+      ? "setToHome"
+      : props.$homeAnime == "quiz"
+      ? "quizToHome"
+      : ""};
   animation-iteration-count: 1;
   animation-duration: 1s;
 
@@ -144,6 +157,31 @@ const HeaderStyle = styled.header`
       width: 15vw;
     }
   }
+
+  @keyframes quizToHome {
+    0% {
+      visibility: hidden;
+      width: 0%;
+    }
+    /* 10% {
+      visibility: hidden;
+    } */
+    100% {
+      width: 15vw;
+    }
+  }
+
+  @keyframes invisiable {
+    0% {
+      width: 15vw;
+      background-color: rgba(255, 255, 255, 0.8);
+      filter: drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25));
+      backdrop-filter: blur(40px);
+    }
+    100% {
+      width: 0vw;
+    }
+  }
 `;
 
 const Logo = styled.h1`
@@ -163,7 +201,7 @@ const IconBox = styled.section`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  animation-name: ${(props) => (props.$homeAnime == "set" ? "show" : "")};
+  animation-name: ${(props) => (props.$homeAnime == "set" || props.$homeAnime == "quiz" ? "show" : "")};
   animation-duration: 0.6s;
   animation-iteration-count: 1;
 

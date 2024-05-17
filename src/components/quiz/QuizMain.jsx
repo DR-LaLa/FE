@@ -34,7 +34,6 @@ const QuizeFrame = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* justify-content: space-evenly; */
   align-items: center;
   box-shadow: 3px 8px 15px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(40px);

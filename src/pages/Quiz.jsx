@@ -5,11 +5,10 @@ import MainProvider from "../provider/MainProvider";
 import QuizMain from "../components/quiz/QuizMain";
 
 export default function Quiz() {
-  const [state, setState] = useState("start");
   return (
     <>
       <MainProvider>
-        <Header show={"false"} />
+        <Header show={"false"} anime={"quiz"} />
       </MainProvider>
       <MainFrame>
         <QuizMain></QuizMain>

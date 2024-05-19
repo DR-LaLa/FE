@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function QuizeMain() {
   const [average, setAverage] = useState(0);
-
+  const navigation = useNavigate();
   return (
     <>
       <ImgLeftTopRedMedicine src="img/red.png" alt="" />
@@ -21,7 +22,13 @@ export default function QuizeMain() {
           <h2>⭐ 건강한 지식 바로알기 ⭐</h2>
           <AverageText>{`지금 사람들은 ${average}문제 풀었어요`}</AverageText>
         </TextBox>
-        <StartButton>START</StartButton>
+        <StartButton
+          onClick={() => {
+            navigation("/playQuiz");
+          }}
+        >
+          START
+        </StartButton>
       </QuizeFrame>
     </>
   );

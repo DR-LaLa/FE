@@ -20,7 +20,7 @@ export default function Header(props) {
     }
   }, []);
 
-  // console.log(props.anime);
+  console.log(props.anime);
 
   return (
     <>

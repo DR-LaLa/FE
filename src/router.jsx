@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import Setting from "./pages/Setting";
 import Quiz from "./pages/Quiz";
 import QuizPlay from "./components/quiz/QuizPlay";
+import Explanation from "./components/quiz/Explanation";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/playquiz",
     element: <QuizPlay />,
+  },
+  {
+    path: "/explanation",
+    element: <Explanation />,
   },
 ]);
 

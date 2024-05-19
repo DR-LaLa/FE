@@ -1,0 +1,21 @@
+{
+  "user": {
+    "count": "1"
+  },
+  "quiz": {
+    "id": 1,
+
+    "category": "medicine",
+
+    "problem": "aaaaaaaaaaaaaaaa",
+
+    "example": {
+      "answer": "aaa",
+      "example_a": "bbb",
+      "example_b": "ccc",
+      "example_c": "ddd"
+    },
+
+    "explanation": "kajsdhfakjsdhf"
+  }
+}

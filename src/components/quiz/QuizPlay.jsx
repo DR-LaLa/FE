@@ -9,7 +9,7 @@ export default function QuizPlay() {
   return (
     <>
       <MainProvider>
-        <Header show={"false"} anime={"multipleQuiz"} />
+        <Header show={"false"} anime={"none"} />
       </MainProvider>
       <MainFrame>
         <QuizProvider>

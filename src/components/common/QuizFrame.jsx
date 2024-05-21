@@ -12,6 +12,7 @@ const QuizSection = styled.section`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  position: relative;
   background-color: #f9f9f9;
   backdrop-filter: blur(40px);
 `;

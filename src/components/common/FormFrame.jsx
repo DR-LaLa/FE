@@ -15,7 +15,8 @@ export default function FormFrame(props) {
 
   async function fetchPost(body) {
     try {
-      const response = await fetch(`${currentPage == "/signup" ? "" : "http://localhost:8080/signin"}`, {
+      const response = await fetch("json/login.json", {
+        // const response = await fetch(`${currentPage == "/signup" ? "" : "http://localhost:8080/signin"}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { QuizContext } from "../../context/context";
 import { useImmer } from "use-immer";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import QuizFrame from "../common/QuizFrame";
+import Explanation from "./Explanation";
 
 export default function QuizBox() {
   const {
@@ -19,47 +20,69 @@ export default function QuizBox() {
     setAnswer,
   } = useContext(QuizContext);
   const [answerArr, updateAnswerArr] = useImmer([]);
+  const [focus, setFocus] = useState("none");
+  const [showExplanation, setShowExplanation] = useState(false);
+  const answers = useRef([]);
   const navigate = useNavigate();
   const QUIZINPO = "quizInpo";
+
   useEffect(() => {
     GetQuizQuestion(setUserCount, setQuestion, updateAnswerArr, setExplanation, setAnswer);
   }, []);
+
+  function select(n) {
+    for (let i = 0; i < 4; i++) {
+      if (i == n) {
+        answers.current[i].style.setProperty("border", "3px solid #FF9748");
+      } else {
+        answers.current[i].style.setProperty("border", "3px solid #ffd1af");
+      }
+    }
+  }
   return (
-    <QuizFrame>
-      <Question>{`Q.  ${question} 이것에 대한 정답은 무엇일까요?`}</Question>
-      <AnswerBox>
-        {answerArr.map((a, n) => (
-          <Answer
+    <>
+      {!showExplanation && (
+        <QuizFrame>
+          <Question>{`Q.  ${question} 이것에 대한 정답은 무엇일까요?`}</Question>
+          <AnswerBox>
+            {answerArr.map((a, n) => (
+              <Answer
+                ref={(el) => (answers.current[n] = el)}
+                onClick={() => {
+                  select(n);
+                  setUserCount((prev) => (prev = Number(prev) + 1));
+                  // console.log(a.answer);
+                  updateUserAnswer((obj) => {
+                    obj.answer = a.answer;
+                    obj.result = a.result;
+                  });
+                }}
+                key={n}
+              >
+                {a.answer}
+              </Answer>
+            ))}
+          </AnswerBox>
+          <SelectButton
             onClick={() => {
-              setUserCount((prev) => (prev = Number(prev) + 1));
-              updateUserAnswer((obj) => {
-                obj.answer = a.answer;
-                obj.result = a.result;
-              });
+              setShowExplanation(true);
+              const obj = {
+                userCount: userCount,
+                question: question,
+                explanation: explanation,
+                userAnswer: userAnswer,
+                answer: answer,
+              };
+              localStorage.setItem(QUIZINPO, JSON.stringify(obj));
+              // navigate("/explanation");
             }}
-            key={n}
           >
-            {a.answer}
-          </Answer>
-        ))}
-      </AnswerBox>
-      <SelectButton
-        onClick={() => {
-          console.log(userCount);
-          const obj = {
-            userCount: userCount,
-            question: question,
-            explanation: explanation,
-            userAnswer: userAnswer,
-            answer: answer,
-          };
-          localStorage.setItem(QUIZINPO, JSON.stringify(obj));
-          navigate("/explanation");
-        }}
-      >
-        선택했어요
-      </SelectButton>
-    </QuizFrame>
+            선택했어요
+          </SelectButton>
+        </QuizFrame>
+      )}
+      {showExplanation && <Explanation />}
+    </>
   );
 }
 
@@ -82,7 +105,7 @@ const Answer = styled.p`
   width: 45%;
   height: 45%;
   border-radius: 20px;
-  border: 3px solid #ffbc89;
+  border: 3px solid #ffd1af;
   font-size: 23px;
   font-weight: 900;
   display: flex;

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ExplanationText() {
   const { userCount, question, explanation, userAnswer, answer } = useContext(QuizContext);
-  // console.log(userCount, question, explanation, userAnswer, answer);
+  console.log(userCount, question, explanation, userAnswer, answer);
   const navigate = useNavigate();
   return (
     <QuizFrame>

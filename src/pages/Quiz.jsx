@@ -11,7 +11,7 @@ export default function Quiz() {
         <Header show={"false"} anime={"quiz"} />
       </MainProvider>
       <MainFrame>
-        <QuizMain></QuizMain>
+        <QuizMain />
       </MainFrame>
     </>
   );

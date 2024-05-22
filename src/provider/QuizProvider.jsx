@@ -3,13 +3,13 @@ import { QuizContext } from "../context/context";
 import { useImmer } from "use-immer";
 
 export default function QuizProvider(props) {
-  const QUIZINPO = "quizInpo";
-  const parseObj = localStorage.getItem(QUIZINPO) ? JSON.parse(localStorage.getItem(QUIZINPO)) : obj;
-  const [userCount, setUserCount] = useState(parseObj.userCount);
-  const [question, setQuestion] = useState(parseObj.question);
-  const [explanation, setExplanation] = useState(parseObj.explanation);
-  const [userAnswer, updateUserAnswer] = useImmer(parseObj.userAnswer);
-  const [answer, setAnswer] = useState(parseObj.answer);
+  const [userCount, setUserCount] = useState(0);
+  const [question, setQuestion] = useState("");
+  const [explanation, setExplanation] = useState("");
+  const [userAnswer, updateUserAnswer] = useImmer(obj);
+  const [answer, setAnswer] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
   return (
     <QuizContext.Provider
       value={{
@@ -23,6 +23,10 @@ export default function QuizProvider(props) {
         updateUserAnswer,
         answer,
         setAnswer,
+        showModal,
+        setShowModal,
+        showExplanation,
+        setShowExplanation,
       }}
     >
       {props.children}
@@ -31,12 +35,6 @@ export default function QuizProvider(props) {
 }
 
 const obj = {
-  userCount: 0,
-  question: "",
-  explanation: "",
-  userAnswer: {
-    answer: "",
-    result: "",
-  },
-  answer: "",
+  answer: "a",
+  result: "b",
 };

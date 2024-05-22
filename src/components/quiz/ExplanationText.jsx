@@ -5,16 +5,17 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function ExplanationText() {
-  const { userCount, question, explanation, userAnswer, answer } = useContext(QuizContext);
-  console.log(userCount, question, explanation, userAnswer, answer);
+  const { userCount, question, explanation, userAnswer, answer, setShowExplanation, showExplanation } =
+    useContext(QuizContext);
   const navigate = useNavigate();
+  // console.log(userCount, userAnswer);
   return (
     <QuizFrame>
       <ScrollSection>
         <Question>{`Q. ${question} 이것에 대한 답은 무엇인가?`}</Question>
         <AnswerBox>
-          <Answer>{`정답: ${answer}`}</Answer>
-          <Answer>{`내가 고른 답: ${userAnswer.answer}`}</Answer>
+          <Answer $ansCheck={"none"}>{`정답: ${answer}`}</Answer>
+          <Answer $ansCheck={userAnswer.result}>{`내가 고른 답: ${userAnswer.answer}`}</Answer>
         </AnswerBox>
         <ExplanationBox>
           <ExplanationTitle>해설</ExplanationTitle>
@@ -30,7 +31,7 @@ export default function ExplanationText() {
           </Button>
           <Button
             onClick={() => {
-              navigate("/playquiz");
+              setShowExplanation(false);
             }}
           >
             다음 퀴즈
@@ -81,6 +82,7 @@ const AnswerBox = styled.section`
 const Answer = styled.p`
   font-size: 17px;
   font-weight: 900;
+  color: ${(props) => (props.$ansCheck == "none" ? "black" : props.$ansCheck == "true" ? "blue" : "red")};
 `;
 
 const ExplanationBox = styled.section`

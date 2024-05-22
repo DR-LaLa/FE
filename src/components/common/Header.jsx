@@ -16,7 +16,7 @@ export default function Header(props) {
   useEffect(() => {
     if (localStorage.getItem(ANIME)) {
       setAnime(localStorage.getItem(ANIME));
-      localStorage.removeItem(ANIME);
+      // localStorage.removeItem(ANIME);
     }
   }, []);
 

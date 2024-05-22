@@ -2,29 +2,30 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { QuizContext } from "../../context/context";
 import { useImmer } from "use-immer";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import QuizFrame from "../common/QuizFrame";
 import Explanation from "./Explanation";
+import ConfirmChoice from "./ConfirmChoice";
 
 export default function QuizBox() {
   const {
-    userCount,
     setUserCount,
     question,
     setQuestion,
-    explanation,
     setExplanation,
-    userAnswer,
     updateUserAnswer,
-    answer,
     setAnswer,
+    showModal,
+    setShowModal,
+    showExplanation,
+    userCount,
+    explanation,
+    userAnswer,
+    answer,
   } = useContext(QuizContext);
   const [answerArr, updateAnswerArr] = useImmer([]);
-  const [focus, setFocus] = useState("none");
-  const [showExplanation, setShowExplanation] = useState(false);
+  const [selectedAns, setSlectedAns] = useState("false");
+
   const answers = useRef([]);
-  const navigate = useNavigate();
-  const QUIZINPO = "quizInpo";
 
   useEffect(() => {
     GetQuizQuestion(setUserCount, setQuestion, updateAnswerArr, setExplanation, setAnswer);
@@ -41,6 +42,7 @@ export default function QuizBox() {
   }
   return (
     <>
+      {showModal && <ConfirmChoice />}
       {!showExplanation && (
         <QuizFrame>
           <Question>{`Q.  ${question} 이것에 대한 정답은 무엇일까요?`}</Question>
@@ -51,11 +53,11 @@ export default function QuizBox() {
                 onClick={() => {
                   select(n);
                   setUserCount((prev) => (prev = Number(prev) + 1));
-                  // console.log(a.answer);
                   updateUserAnswer((obj) => {
                     obj.answer = a.answer;
                     obj.result = a.result;
                   });
+                  setSlectedAns("true");
                 }}
                 key={n}
               >
@@ -64,20 +66,12 @@ export default function QuizBox() {
             ))}
           </AnswerBox>
           <SelectButton
+            $slectedState={selectedAns}
             onClick={() => {
-              setShowExplanation(true);
-              const obj = {
-                userCount: userCount,
-                question: question,
-                explanation: explanation,
-                userAnswer: userAnswer,
-                answer: answer,
-              };
-              localStorage.setItem(QUIZINPO, JSON.stringify(obj));
-              // navigate("/explanation");
+              setShowModal(true);
             }}
           >
-            선택했어요
+            {selectedAns == "false" ? "답을 선택해주세요" : "선택했어요"}
           </SelectButton>
         </QuizFrame>
       )}
@@ -98,7 +92,6 @@ const AnswerBox = styled.section`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  /* background-color: yellowgreen; */
 `;
 
 const Answer = styled.p`
@@ -118,11 +111,11 @@ const SelectButton = styled.button`
   width: 30%;
   height: 12%;
   border-radius: 20px;
-  border: 3px solid #ffbc89;
-  color: #f9f9f9;
+  border: 3px solid ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ffbc89")};
+  color: ${(props) => (props.$slectedState == "false" ? "#6D6D6D" : "#f9f9f9")};
   font-size: 20px;
   font-weight: 900;
-  background-color: #ff9748;
+  background-color: ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ff9748")};
   outline: none;
 `;
 
@@ -142,9 +135,9 @@ async function GetQuizQuestion(userCount, question, answerArr, explanation, answ
     obj.answer = data.quiz.example[e];
     if (e == "answer") {
       answer(data.quiz.example[e]);
-      obj.result = true;
+      obj.result = "true";
     } else {
-      obj.result = false;
+      obj.result = "false";
     }
     answerArr((arr) => {
       if (arr.length < 4) {

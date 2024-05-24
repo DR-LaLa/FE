@@ -6,12 +6,12 @@ import { RiContactsBook2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MainContext } from "../../context/context";
+import { ANIME } from "./key";
 
 export default function Header(props) {
   const { anime, setAnime } = useContext(MainContext);
   const navigate = useNavigate();
   const currentPage = useLocation().pathname;
-  const ANIME = "anime";
 
   useEffect(() => {
     if (localStorage.getItem(ANIME)) {
@@ -19,8 +19,6 @@ export default function Header(props) {
       // localStorage.removeItem(ANIME);
     }
   }, []);
-
-  console.log(props.anime);
 
   return (
     <>
@@ -46,6 +44,8 @@ export default function Header(props) {
                       navigate("/setting");
                     } else if (icon.name == "quiz") {
                       navigate("/quiz");
+                    } else if (icon.name == "rank") {
+                      navigate("/rank");
                     }
                   }}
                   key={icon.key}

@@ -3,12 +3,12 @@ import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import { useEffect, useState } from "react";
 import MainProvider from "../provider/MainProvider";
+import { USERDATA } from "../components/common/key";
 
 export default function Setting() {
-  const USERNAME = "userName";
   const [level, setLevel] = useState("1");
-  const [userName, setUserName] = useState(
-    localStorage.getItem(USERNAME) ? JSON.parse(localStorage.getItem(USERNAME)).nickname : ""
+  const [userData, setUserData] = useState(
+    localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)).nickname : ""
   );
 
   async function setFetch() {
@@ -27,9 +27,9 @@ export default function Setting() {
     <MainProvider>
       <Header show={"true"} anime={"setting"}>
         <SettingTool>
-          <UserInpo $nameLength={userName.length}>
+          <UserInpo $nameLength={userData.length}>
             <UserLevel>{`Lv ${level}`}</UserLevel>
-            <span>{`\u00a0\u00a0${userName}`}</span>
+            <span>{`\u00a0\u00a0${userData}`}</span>
           </UserInpo>
           <span>로그아웃</span>
           <span>개발자 정보</span>

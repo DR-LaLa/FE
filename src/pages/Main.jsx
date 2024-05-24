@@ -4,16 +4,14 @@ import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { USERDATA, ANIME } from "../components/common/key";
 
 export default function Main() {
   const navigate = useNavigate();
-  const USERNAME = "userName";
-  const ANIME = "anime";
-  const userName = localStorage.getItem(USERNAME) ? localStorage.getItem(USERNAME) : "";
+  const userData = localStorage.getItem(USERDATA) ? localStorage.getItem(USERDATA) : "";
   const homeAnime = localStorage.getItem(ANIME) ? localStorage.getItem(ANIME) : "";
-  // console.log(homeAnime);
   useEffect(() => {
-    if (userName == "") {
+    if (userData == "") {
       navigate("/login");
     }
   }, []);

@@ -22,6 +22,7 @@ export default function InputBox() {
           }}
           required
           autoComplete="off"
+          maxLength={5}
         />
       </section>
       <section>

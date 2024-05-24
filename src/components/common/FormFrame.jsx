@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext, SignupContext } from "../../context/context";
 import { useLocation, useNavigate } from "react-router-dom";
+import { USERDATA } from "../common/key";
 
 export default function FormFrame(props) {
   const { signUpInpo, updateSignUpInpo } = useContext(SignupContext);
@@ -10,8 +11,6 @@ export default function FormFrame(props) {
 
   const navigate = useNavigate();
   const currentPage = useLocation().pathname;
-
-  const USERNAME = "userName";
 
   async function fetchPost(body) {
     try {
@@ -24,7 +23,7 @@ export default function FormFrame(props) {
         body: JSON.stringify(body),
       });
       let data = await response.json();
-      localStorage.setItem(USERNAME, JSON.stringify(data));
+      localStorage.setItem(USERDATA, JSON.stringify(data));
       if (currentPage == "/login") navigate("/");
       else {
         navigate("/login");

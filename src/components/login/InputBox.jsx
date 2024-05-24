@@ -45,11 +45,11 @@ export default function InputBox() {
   );
 }
 
-async function loginFunction(body) {
-  try {
-    // const
-  } catch (err) {}
-}
+// async function loginFunction(body) {
+//   try {
+//     // const
+//   } catch (err) {}
+// }
 
 const InputBoxStyled = styled.section`
   width: 380px;

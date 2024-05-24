@@ -6,6 +6,7 @@ import Setting from "./pages/Setting";
 import Quiz from "./pages/Quiz";
 import QuizPlay from "./components/quiz/QuizPlay";
 import Explanation from "./components/quiz/Explanation";
+import Rank from "./pages/Rank";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +34,8 @@ const router = createBrowserRouter([
     element: <QuizPlay />,
   },
   {
-    path: "/explanation",
-    element: <Explanation />,
+    path: "/rank",
+    element: <Rank />,
   },
 ]);
 

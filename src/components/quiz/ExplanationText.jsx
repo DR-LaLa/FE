@@ -3,12 +3,13 @@ import { QuizContext } from "../../context/context";
 import QuizFrame from "../common/QuizFrame";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { USERDATA } from "../common/key";
 
 export default function ExplanationText() {
   const { userCount, question, explanation, userAnswer, answer, setShowExplanation, showExplanation } =
     useContext(QuizContext);
   const navigate = useNavigate();
-  // console.log(userCount, userAnswer);
+  const userData = JSON.parse(localStorage.getItem(USERDATA));
   return (
     <QuizFrame>
       <ScrollSection>
@@ -24,7 +25,7 @@ export default function ExplanationText() {
         <ButtonBox>
           <Button
             onClick={() => {
-              navigate("/");
+              sendCount(userData, userCount, navigate);
             }}
           >
             나가기
@@ -40,6 +41,22 @@ export default function ExplanationText() {
       </ScrollSection>
     </QuizFrame>
   );
+}
+
+async function sendCount(userData, body, navigate) {
+  try {
+    const response = await fetch(`localhost:8080/main/update/${userData.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    navigate("/");
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 const ScrollSection = styled.section`

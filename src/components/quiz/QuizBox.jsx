@@ -52,7 +52,6 @@ export default function QuizBox() {
                 ref={(el) => (answers.current[n] = el)}
                 onClick={() => {
                   select(n);
-                  setUserCount((prev) => (prev = Number(prev) + 1));
                   updateUserAnswer((obj) => {
                     obj.answer = a.answer;
                     obj.result = a.result;

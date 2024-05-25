@@ -3,7 +3,7 @@ import { QuizContext } from "../../context/context";
 import styled from "styled-components";
 
 export default function ConfirmChoice() {
-  const { userAnswer, setShowModal, setShowExplanation } = useContext(QuizContext);
+  const { userAnswer, setShowModal, setShowExplanation, setUserCount } = useContext(QuizContext);
   // console.log(userAnswer.answer);
   return (
     <>
@@ -21,6 +21,7 @@ export default function ConfirmChoice() {
           <ButtonStyle
             $use={"confirm"}
             onClick={() => {
+              setUserCount((prev) => (prev = Number(prev) + 1));
               setShowExplanation(true);
               setShowModal(false);
             }}

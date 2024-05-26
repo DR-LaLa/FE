@@ -7,6 +7,7 @@ import DetailedPage from "../components/album/DetailedPage";
 import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
+import AlbumProvider from "../provider/AlbumProvider";
 
 export default function Album() {
   return (
@@ -17,14 +18,16 @@ export default function Album() {
       <MainFrame>
         <Section>
           <Title>라라의 앨범</Title>
-          <AlbumBox>
-            <Albumleft>
-              <Collection />
-            </Albumleft>
-            <AlbumRight>
-              <DetailedPage />
-            </AlbumRight>
-          </AlbumBox>
+          <AlbumProvider>
+            <AlbumBox>
+              <Albumleft>
+                <Collection />
+              </Albumleft>
+              <AlbumRight>
+                <DetailedPage />
+              </AlbumRight>
+            </AlbumBox>
+          </AlbumProvider>
         </Section>
       </MainFrame>
     </>

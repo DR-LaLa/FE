@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { AlbumContext } from "../../context/context";
+import { USERDATA } from "../common/key";
 
 export default function Collection() {
   let imgArr = [
@@ -14,10 +16,11 @@ export default function Collection() {
     "img/수술의사.png",
   ];
 
+  const { selectPicture, updateSelectPicture } = useContext(AlbumContext);
   const [count, setCount] = useState(0);
-
+  const userData = JSON.parse(localStorage.getItem(USERDATA));
   useEffect(() => {
-    getCount(setCount);
+    getCount(setCount, userData);
   }, []);
 
   return (
@@ -25,7 +28,16 @@ export default function Collection() {
       {imgArr.map((x, n) => {
         if (count / 10 - 1 > n) {
           return (
-            <SeveralCollection key={n}>
+            <SeveralCollection
+              key={n}
+              onClick={(e) => {
+                updateSelectPicture((obj) => {
+                  obj.img = x;
+                  obj.name = x.replace(/["img", "/", ".png"]/g, "") + " 라라";
+                  obj.albumNum = n;
+                });
+              }}
+            >
               <Img src={x} alt="" />
               <p>{x.replace(/["img", "/", ".png"]/g, "") + " 라라"}</p>
             </SeveralCollection>
@@ -43,8 +55,9 @@ export default function Collection() {
   );
 }
 
-async function getCount(setCount) {
-  const response = await fetch("json/set.json");
+async function getCount(setCount, userData) {
+  // const response = await fetch("json/set.json");
+  const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
   const data = await response.json();
   setCount(data.count);
 }

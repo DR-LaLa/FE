@@ -14,14 +14,17 @@ export default function FormFrame(props) {
 
   async function fetchPost(body) {
     try {
-      const response = await fetch("json/login.json", {
-        // const response = await fetch(`${currentPage == "/signup" ? "" : "http://localhost:8080/signin"}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      // const response = await fetch("json/login.json", {
+      const response = await fetch(
+        `${currentPage == "/signup" ? "http://localhost:8080/signup" : "http://localhost:8080/signin"}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
       let data = await response.json();
       localStorage.setItem(USERDATA, JSON.stringify(data));
       if (currentPage == "/login") navigate("/");

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import QuizFrame from "../common/QuizFrame";
 import Explanation from "./Explanation";
 import ConfirmChoice from "./ConfirmChoice";
+import { USERDATA } from "../common/key";
 
 export default function QuizBox() {
   const {
@@ -26,9 +27,10 @@ export default function QuizBox() {
   const [selectedAns, setSlectedAns] = useState("false");
 
   const answers = useRef([]);
+  const userData = JSON.parse(localStorage.getItem(USERDATA));
 
   useEffect(() => {
-    GetQuizQuestion(setUserCount, setQuestion, updateAnswerArr, setExplanation, setAnswer);
+    GetQuizQuestion(setUserCount, setQuestion, updateAnswerArr, setExplanation, setAnswer, userData);
   }, []);
 
   function select(n) {
@@ -78,48 +80,8 @@ export default function QuizBox() {
     </>
   );
 }
-
-const Question = styled.p`
-  width: 80%;
-  font-size: 40px;
-`;
-
-const AnswerBox = styled.section`
-  width: 80%;
-  height: 40%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-`;
-
-const Answer = styled.p`
-  width: 45%;
-  height: 45%;
-  border-radius: 20px;
-  border: 3px solid #ffd1af;
-  font-size: 23px;
-  font-weight: 900;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffeada;
-`;
-
-const SelectButton = styled.button`
-  width: 30%;
-  height: 12%;
-  border-radius: 20px;
-  border: 3px solid ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ffbc89")};
-  color: ${(props) => (props.$slectedState == "false" ? "#6D6D6D" : "#f9f9f9")};
-  font-size: 20px;
-  font-weight: 900;
-  background-color: ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ff9748")};
-  outline: none;
-`;
-
-async function GetQuizQuestion(userCount, question, answerArr, explanation, answer) {
-  const response = await fetch(`json/quiz.json`);
+async function GetQuizQuestion(userCount, question, answerArr, explanation, answer, userData) {
+  const response = await fetch(`http://localhost:8080/main/quiz/${userData.id}`);
   const data = await response.json();
 
   userCount(data.user.count);
@@ -144,6 +106,45 @@ async function GetQuizQuestion(userCount, question, answerArr, explanation, answ
       }
     });
   }
+
+  const Question = styled.p`
+    width: 80%;
+    font-size: 40px;
+  `;
+
+  const AnswerBox = styled.section`
+    width: 80%;
+    height: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+  `;
+
+  const Answer = styled.p`
+    width: 45%;
+    height: 45%;
+    border-radius: 20px;
+    border: 3px solid #ffd1af;
+    font-size: 23px;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffeada;
+  `;
+
+  const SelectButton = styled.button`
+    width: 30%;
+    height: 12%;
+    border-radius: 20px;
+    border: 3px solid ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ffbc89")};
+    color: ${(props) => (props.$slectedState == "false" ? "#6D6D6D" : "#f9f9f9")};
+    font-size: 20px;
+    font-weight: 900;
+    background-color: ${(props) => (props.$slectedState == "false" ? "#DBD5D0" : "#ff9748")};
+    outline: none;
+  `;
 
   explanation(data.quiz.explanation);
 }

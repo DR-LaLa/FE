@@ -6,30 +6,21 @@ import MainProvider from "../provider/MainProvider";
 import { USERDATA } from "../components/common/key";
 
 export default function Setting() {
-  const [level, setLevel] = useState("1");
+  const [level, setLevel] = useState("0");
   const [userData, setUserData] = useState(
-    localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)).nickname : ""
+    localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : ""
   );
 
-  async function setFetch() {
-    try {
-      const response = await fetch("json/set.json");
-      const data = await response.json();
-      setLevel(Math.floor(data.count / 30));
-    } catch (err) {}
-  }
-
   useEffect(() => {
-    setFetch();
-    console.log(level);
+    setFetch(setLevel, userData);
   }, []);
   return (
     <MainProvider>
       <Header show={"true"} anime={"setting"}>
         <SettingTool>
-          <UserInpo $nameLength={userData.length}>
+          <UserInpo $nameLength={userData.nickname.length}>
             <UserLevel>{`Lv ${level}`}</UserLevel>
-            <span>{`\u00a0\u00a0${userData}`}</span>
+            <span>{`\u00a0\u00a0${userData.nickname}`}</span>
           </UserInpo>
           <span>로그아웃</span>
           <span>개발자 정보</span>
@@ -44,7 +35,13 @@ export default function Setting() {
     </MainProvider>
   );
 }
-
+async function setFetch(setLevel, userData) {
+  try {
+    const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
+    const data = await response.json();
+    setLevel(Math.floor(data.count / 30));
+  } catch (err) {}
+}
 const Img = styled.img`
   width: 42vw;
   position: relative;

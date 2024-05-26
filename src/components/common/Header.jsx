@@ -16,7 +16,6 @@ export default function Header(props) {
   useEffect(() => {
     if (localStorage.getItem(ANIME)) {
       setAnime(localStorage.getItem(ANIME));
-      // localStorage.removeItem(ANIME);
     }
   }, []);
 
@@ -46,6 +45,8 @@ export default function Header(props) {
                       navigate("/quiz");
                     } else if (icon.name == "rank") {
                       navigate("/rank");
+                    } else {
+                      navigate("/album");
                     }
                   }}
                   key={icon.key}

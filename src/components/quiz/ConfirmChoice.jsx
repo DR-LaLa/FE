@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 export default function ConfirmChoice() {
   const { userAnswer, setShowModal, setShowExplanation, setUserCount } = useContext(QuizContext);
-  // console.log(userAnswer.answer);
   return (
     <>
       <ModalBox>

@@ -44,7 +44,6 @@ export default function FormFrame(props) {
           onClick={(e) => {
             e.preventDefault();
             if (currentPage == "/signup") {
-              console.log(signUpInpo);
               fetchPost(signUpInpo);
               navigate("/login");
             } else {

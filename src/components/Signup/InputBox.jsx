@@ -98,7 +98,6 @@ async function fetchGet(body) {
       body: JSON.stringify(body),
     });
     let data = await response.json();
-    console.log(data);
   } catch (err) {
     console.log(err);
   }

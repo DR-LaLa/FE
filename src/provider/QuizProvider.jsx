@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { QuizContext } from "../context/context";
 import { useImmer } from "use-immer";
 
@@ -10,6 +10,10 @@ export default function QuizProvider(props) {
   const [answer, setAnswer] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [answerArr, updateAnswerArr] = useImmer([]);
+  const [quizType, setQuizType] = useState("m");
+  const [selectedAns, setSlectedAns] = useState("false");
+  const answers = useRef([]);
   return (
     <QuizContext.Provider
       value={{
@@ -27,6 +31,13 @@ export default function QuizProvider(props) {
         setShowModal,
         showExplanation,
         setShowExplanation,
+        answerArr,
+        updateAnswerArr,
+        quizType,
+        setQuizType,
+        selectedAns,
+        setSlectedAns,
+        answers,
       }}
     >
       {props.children}

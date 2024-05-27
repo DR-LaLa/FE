@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext, SignupContext } from "../../context/context";
+import { useNavigate } from "react-router-dom";
 
 export default function InputBox() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const { loginInpo, updateLoginInpo } = useContext(LoginContext);
+  const navigate = useNavigate();
   return (
     <InputBoxStyled>
       <section>
@@ -15,7 +17,7 @@ export default function InputBox() {
           placeholder="id를 적어주세요"
           required
           autoComplete="off"
-          onInput={(e) => {
+          onChange={(e) => {
             updateLoginInpo((obj) => {
               obj.loginid = e.target.value;
             });
@@ -29,7 +31,7 @@ export default function InputBox() {
           placeholder="비밀번호를 입력해주세요"
           required
           autoComplete="off"
-          onInput={(e) => {
+          onChange={(e) => {
             updateLoginInpo((obj) => {
               obj.password = e.target.value;
             });
@@ -38,28 +40,28 @@ export default function InputBox() {
         <LoginMore>
           <Span>아이디 찾기</Span>
           <Span>비밀번호 찾기</Span>
-          <span>회원가입</span>
+          <span
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            회원가입
+          </span>
         </LoginMore>
       </section>
     </InputBoxStyled>
   );
 }
 
-// async function loginFunction(body) {
-//   try {
-//     // const
-//   } catch (err) {}
-// }
-
 const InputBoxStyled = styled.section`
-  width: 380px;
-  height: 35%;
+  width: 25vw;
+  height: 40%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  bottom: 7vh;
+  bottom: 5vh;
 `;
 
 const Label = styled.label`
@@ -90,6 +92,10 @@ const LoginMore = styled.section`
   position: absolute;
   bottom: -30px;
   right: -15px;
+
+  span {
+    cursor: pointer;
+  }
 `;
 
 const Span = styled.span`

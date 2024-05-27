@@ -4,12 +4,14 @@ import MainFrame from "../components/common/MainFrame";
 import { useEffect, useState } from "react";
 import MainProvider from "../provider/MainProvider";
 import { USERDATA } from "../components/common/key";
+import InpoBox from "../components/setting/InpoBox";
 
 export default function Setting() {
   const [level, setLevel] = useState("0");
   const [userData, setUserData] = useState(
     localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : ""
   );
+  const [showInpo, setShowinpo] = useState("none");
 
   useEffect(() => {
     setFetch(setLevel, userData);
@@ -22,12 +24,47 @@ export default function Setting() {
             <UserLevel>{`Lv ${level}`}</UserLevel>
             <span>{`\u00a0\u00a0${userData.nickname}`}</span>
           </UserInpo>
-          <span>로그아웃</span>
-          <span>개발자 정보</span>
-          <span>문의 메일</span>
+          <Span
+            onClick={() => {
+              setShowinpo("logout");
+              // localStorage.removeItem(USERDATA);
+            }}
+          >
+            로그아웃
+          </Span>
+          <Span
+            onClick={() => {
+              setShowinpo("developer");
+            }}
+          >
+            개발자 정보
+          </Span>
+          <Span
+            onClick={() => {
+              setShowinpo("email");
+            }}
+          >
+            문의 메일
+          </Span>
         </SettingTool>
       </Header>
       <MainFrame>
+        {showInpo == "logout" && (
+          <InpoBox close={setShowinpo} state={showInpo}>
+            <span>로그아웃 하시겠습니까?</span>
+          </InpoBox>
+        )}
+        {showInpo == "developer" && (
+          <InpoBox close={setShowinpo}>
+            <span>FRONTEND 서예린</span>
+            <span>BACKEND 황서은</span>
+          </InpoBox>
+        )}
+        {showInpo == "email" && (
+          <InpoBox close={setShowinpo}>
+            <span>seyerin12@naver.com</span>
+          </InpoBox>
+        )}
         <section>
           <Img src="img/유딩.png" alt="" />
         </section>
@@ -37,6 +74,7 @@ export default function Setting() {
 }
 async function setFetch(setLevel, userData) {
   try {
+    // const response = await fetch("json/set.json");
     const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
     const data = await response.json();
     setLevel(Math.floor(data.count / 30));
@@ -94,8 +132,6 @@ const SettingTool = styled.section`
 `;
 
 const UserInpo = styled.section`
-  /* width: 50%; */
-  /* width: 200px; */
   width: ${(props) => (props.$nameLength > 0 ? `${125 + props.$nameLength * 25.95}px` : "125px")};
   height: auto;
   font-size: 30px;
@@ -103,11 +139,14 @@ const UserInpo = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-  /* background-color: aqua; */
 `;
 
 const UserLevel = styled.span`
   font-size: 25px;
   position: absolute;
   left: 0;
+`;
+
+const Span = styled.span`
+  cursor: pointer;
 `;

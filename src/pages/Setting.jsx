@@ -74,8 +74,8 @@ export default function Setting() {
 }
 async function setFetch(setLevel, userData) {
   try {
-    const response = await fetch("json/set.json");
-    // const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
+    // const response = await fetch("json/set.json");
+    const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
     const data = await response.json();
     setLevel(Math.floor(data.count / 30));
   } catch (err) {}

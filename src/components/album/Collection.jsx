@@ -46,7 +46,7 @@ export default function Collection() {
           return (
             <MysteryBox key={n}>
               <QuestionMark>?</QuestionMark>
-              <MysteryText>{`해금까지 ${(count % 10) + (n - Math.floor(count / 10)) * 10}문제`}</MysteryText>
+              <MysteryText>{`해금까지 ${(n + 1) * 10 - count}문제`}</MysteryText>
             </MysteryBox>
           );
         }
@@ -57,7 +57,7 @@ export default function Collection() {
 
 async function getCount(setCount, userData) {
   // const response = await fetch("json/set.json");
-  const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
+  const response = await fetch(`http://localhost:8080/main/quizcount/${userData.id}`);
   const data = await response.json();
   setCount(data.count);
 }

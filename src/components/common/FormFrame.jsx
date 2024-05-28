@@ -28,13 +28,15 @@ export default function FormFrame(props) {
         if (tmp[x] !== "") {
           if (duplicationState && duplication) {
             setDisabled("true");
+          } else {
+            setDisabled("false");
           }
         } else {
           setDisabled("false");
         }
       }
     });
-  }, [loginInpo, signUpInpo, duplicationState]);
+  }, [loginInpo, signUpInpo, duplication, duplicationState]);
 
   return (
     <>
@@ -64,8 +66,11 @@ export default function FormFrame(props) {
           onClick={(e) => {
             e.preventDefault();
             if (disabled == "true") {
-              fetchPost(signUpInpo, currentPage, USERDATA, navigate, setShow);
-              navigate("/login");
+              if (currentPage == "/signup") {
+                fetchPost(signUpInpo, currentPage, USERDATA, navigate, setShow);
+              } else {
+                fetchPost(loginInpo, currentPage, USERDATA, navigate, setShow);
+              }
             }
           }}
         >
@@ -88,10 +93,14 @@ async function fetchPost(body, currentPage, USERDATA, navigate, setShow) {
         body: JSON.stringify(body),
       }
     );
-    let data = await response.json();
-    localStorage.setItem(USERDATA, JSON.stringify(data));
-    if (currentPage == "/login") navigate("/");
-    else {
+    if (response.status == 500) {
+      throw new Error(404);
+    }
+    if (currentPage == "/login") {
+      let data = await response.json();
+      localStorage.setItem(USERDATA, JSON.stringify(data));
+      navigate("/");
+    } else {
       navigate("/login");
     }
   } catch (err) {

@@ -37,7 +37,7 @@ export default function InputBox() {
             onClick={(e) => {
               e.preventDefault();
               if (signUpInpo.loginid != "") {
-                duplicationCheck(userId, setDuplication);
+                duplicationCheck(signUpInpo.loginid, setDuplication);
                 setDuplicationState(true);
               } else {
                 setDuplication("none");
@@ -97,8 +97,7 @@ export default function InputBox() {
 }
 async function duplicationCheck(body, setDuplication) {
   try {
-    const response = await fetch("json/dup.json", {
-      // const response = await fetch("http//localhost:8080/signup/confirmid", {
+    const response = await fetch("http://localhost:8080/signup/confirmid", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -45,7 +45,7 @@ export default function ExplanationText() {
 
 async function sendCount(userData, body, navigate) {
   try {
-    const response = await fetch(`localhost:8080/main/update/${userData.id}`, {
+    const response = await fetch(`localhost:8080/main/update/${userData.loginid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

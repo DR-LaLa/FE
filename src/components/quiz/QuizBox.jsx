@@ -39,34 +39,38 @@ export default function QuizBox() {
   );
 }
 async function GetQuizQuestion(userCount, question, answerArr, explanation, answer, userData, setQuizType) {
-  const response = await fetch(`http://localhost:8080/main/quiz/${userData.loginid}`);
-  // const response = await fetch("json/quiz.json");
-  const data = await response.json();
+  try {
+    const response = await fetch(`http://localhost:8080/main/quiz/${userData.loginid}`);
+    // const response = await fetch("json/quiz.json");
+    const data = await response.json();
 
-  userCount(data.user.count);
+    userCount(data.user.count);
 
-  question(data.quiz.problem);
+    question(data.quiz.problem);
 
-  for (let e in data.quiz.example) {
-    let obj = {
-      answer: "",
-      result: "",
-    };
-    obj.answer = data.quiz.example[e];
-    if (e == "answer") {
-      answer(data.quiz.example[e]);
-      obj.result = "true";
-    } else {
-      if (data.quiz.example[e] == null) {
-        setQuizType("o");
+    for (let e in data.quiz.example) {
+      let obj = {
+        answer: "",
+        result: "",
+      };
+      obj.answer = data.quiz.example[e];
+      if (e == "answer") {
+        answer(data.quiz.example[e]);
+        obj.result = "true";
+      } else {
+        if (data.quiz.example[e] == null) {
+          setQuizType("o");
+        }
+        obj.result = "false";
       }
-      obj.result = "false";
+      answerArr((arr) => {
+        if (arr.length < 4) {
+          arr.push(obj);
+        }
+      });
     }
-    answerArr((arr) => {
-      if (arr.length < 4) {
-        arr.push(obj);
-      }
-    });
+    explanation(data.quiz.explanation);
+  } catch (e) {
+    console.log(e);
   }
-  explanation(data.quiz.explanation);
 }

@@ -58,6 +58,7 @@ export default function Setting() {
           <InpoBox close={setShowinpo}>
             <span>FRONTEND 서예린</span>
             <span>BACKEND 황서은</span>
+            <span>BACKEND 류동하</span>
           </InpoBox>
         )}
         {showInpo == "email" && (
@@ -75,10 +76,12 @@ export default function Setting() {
 async function setFetch(setLevel, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`http://localhost:8080//main/quizcount/${userData.id}`);
+    const response = await fetch(`http:/localhost:8080//main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setLevel(Math.floor(data.count / 30));
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 }
 const Img = styled.img`
   width: 42vw;

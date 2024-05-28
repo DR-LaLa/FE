@@ -53,14 +53,14 @@ async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) 
         tmp = x.count;
         lank = n;
       }
-      if (userData.id == x.loginid) {
+      if (userData.loginid == x.loginid) {
         myLank = lank;
       }
     });
 
     updateMyData((obj) => {
-      const tmp = data.filter((x, n) => x.loginid == userData.id)[0];
-      const lank = data.findIndex((x, n) => x.loginid == userData.id);
+      const tmp = data.filter((x, n) => x.loginid == userData.loginid)[0];
+      const lank = data.findIndex((x, n) => x.loginid == userData.loginid);
       obj.lank = lank;
       obj.nickname = tmp.nickname;
       obj.count = tmp.count;

@@ -10,7 +10,7 @@ export default function InputBox() {
   const navigate = useNavigate();
   return (
     <InputBoxStyled>
-      <section>
+      <Section>
         <Label htmlFor="">ID</Label>
         <Input
           type="text"
@@ -23,8 +23,8 @@ export default function InputBox() {
             });
           }}
         />
-      </section>
-      <section>
+      </Section>
+      <Section>
         <Label htmlFor="">PASSWORD</Label>
         <Input
           type="password"
@@ -37,18 +37,18 @@ export default function InputBox() {
             });
           }}
         />
-        <LoginMore>
-          <Span>아이디 찾기</Span>
-          <Span>비밀번호 찾기</Span>
-          <span
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            회원가입
-          </span>
-        </LoginMore>
-      </section>
+      </Section>
+      <LoginMore>
+        <Span>아이디 찾기</Span>
+        <Span>비밀번호 찾기</Span>
+        <span
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          회원가입
+        </span>
+      </LoginMore>
     </InputBoxStyled>
   );
 }
@@ -62,6 +62,12 @@ const InputBoxStyled = styled.section`
   align-items: center;
   position: relative;
   bottom: 5vh;
+`;
+
+const Section = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Label = styled.label`
@@ -82,29 +88,34 @@ const Input = styled.input`
 `;
 
 const LoginMore = styled.section`
-  width: 15vw;
+  width: 100%;
   height: 3vh;
   color: #ff9748;
   font-size: 13px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: end;
   align-items: center;
-  position: absolute;
+  /* position: absolute;
   bottom: -30px;
-  right: -15px;
+  right: -15px; */
 
   span {
     cursor: pointer;
   }
 `;
 
-const Span = styled.span`
+const Span = styled.p`
+  margin-right: 0.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &&::after {
     content: "";
+    margin-left: 0.3vw;
     width: 5.5px;
     height: 15px;
     border-right: 2px solid #ff9748;
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
   }
 `;

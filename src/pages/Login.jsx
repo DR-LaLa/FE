@@ -6,8 +6,16 @@ import MainProvider from "../provider/MainProvider";
 import SignupProvider from "../provider/SignupProvider";
 import InputBox from "../components/login/InputBox";
 import LoginProvider from "../provider/LoginProvider";
+import { USERDATA } from "../components/common/key";
 
 export default function Login() {
+  localStorage.setItem(
+    USERDATA,
+    JSON.stringify({
+      id: "seyerin",
+      nickname: "라틴킹",
+    })
+  );
   return (
     <>
       <MainProvider>

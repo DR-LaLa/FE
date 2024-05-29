@@ -9,7 +9,7 @@ export default function Rank() {
   return (
     <>
       <MainProvider>
-        <Header show={"true"} anime={"rank"} />
+        <Header show={"true"} anime={"none"} />
       </MainProvider>
       <MainFrame>
         <RankProvider>

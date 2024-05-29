@@ -13,7 +13,7 @@ export default function Album() {
   return (
     <>
       <MainProvider>
-        <Header show={"true"} anime={"album"} />
+        <Header show={"true"} anime={"none"} />
       </MainProvider>
       <MainFrame>
         <Section>

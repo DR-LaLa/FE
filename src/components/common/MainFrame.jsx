@@ -1,14 +1,22 @@
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 export default function MainFrame(props) {
-  return <Main>{props.children}</Main>;
+  const currentPage = useLocation().pathname;
+  return <Main $currentPage={currentPage}>{props.children}</Main>;
 }
 
 const Main = styled.main`
-  width: 100%;
+  width: ${(props) =>
+    props.$currentPage == "/login" || props.$currentPage == "/signup"
+      ? "100%"
+      : props.$currentPage == "/setting"
+      ? "70%"
+      : "85%"};
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: #00ffff4f;
 `;

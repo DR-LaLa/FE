@@ -87,7 +87,7 @@ const Img = styled.img`
   width: 42vw;
   position: relative;
   top: 3vh;
-  left: 10vw;
+  /* left: 10vw; */
   animation-name: move;
   animation-duration: 1s;
   animation-iteration-count: 1;

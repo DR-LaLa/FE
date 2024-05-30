@@ -85,10 +85,17 @@ const QuizTitle = styled.h1`
     font-weight: normal;
     font-style: normal;
   }
+  @font-face {
+    font-family: "DNFBitBitv2";
+    font-style: normal;
+    font-weight: 400;
+    src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf") format("opentype");
+  }
 
   color: #ff4f4f;
+  /* font-family: "DNFBitBitv2"; */
   font-size: 60px;
-  font-weight: 100;
+  font-weight: 400;
   letter-spacing: 10px;
   font-family: "ONE-Mobile-POP";
 `;

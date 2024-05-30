@@ -1,12 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { PiRankingFill } from "react-icons/pi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
+import { HiSearch } from "react-icons/hi";
+import { useContext, useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MainContext } from "../../context/context";
 import { ANIME } from "./key";
+import SignUp from "../../pages/Signup";
 
 export default function Header(props) {
   const { anime, setAnime } = useContext(MainContext);
@@ -19,6 +21,7 @@ export default function Header(props) {
       localStorage.removeItem(ANIME);
     }
   }, []);
+  // console.log(currentPage);
   return (
     <>
       {props.show == "true" && (
@@ -45,8 +48,10 @@ export default function Header(props) {
                       navigate("/quiz");
                     } else if (icon.name == "rank") {
                       navigate("/rank");
-                    } else {
+                    } else if (icon.name == "album") {
                       navigate("/album");
+                    } else {
+                      navigate("/search");
                     }
                   }}
                   key={icon.key}
@@ -63,6 +68,7 @@ export default function Header(props) {
       )}
       {props.show == "false" && (
         <HeaderStyle
+          $currentPage={currentPage}
           $settingAnime={props.anime}
           $homeAnime={anime}
           $show={props.show}
@@ -85,7 +91,7 @@ export default function Header(props) {
           >
             LOGO
           </Logo>
-          <IconBox $show={props.show} $hover={hoverStyled}>
+          <IconBox $show={props.show} $hover={hoverStyled} $currentPage={currentPage}>
             {iconArr.map((icon) => (
               <Icon
                 onClick={() => {
@@ -126,10 +132,15 @@ const iconArr = [
   {
     key: 3,
     component: <RiContactsBook2Fill />,
-    name: "book",
+    name: "album",
   },
   {
     key: 4,
+    component: <HiSearch />,
+    name: "search",
+  },
+  {
+    key: 5,
     component: <IoMdSettings />,
     name: "setting",
   },
@@ -177,12 +188,16 @@ const HeaderStyle = styled.header`
     border-radius: 0 20px 20px 0;
     display: block;
     position: absolute;
-    right: -5vw;
-    background: rgba(255, 255, 255, 0.8);
+    right: -5.01vw;
+    background: rgba(255, 255, 255, 0.83);
+    /* backdrop-filter: blur(40px); */
     transition-duration: 1s;
     visibility: ${(props) => (props.$show == "true" || props.$hover == "true" ? "visible" : "hidden")};
     opacity: ${(props) => (props.$hover == "true" || props.$show == "true" ? "1" : "0")};
-    animation-name: ${(props) => (props.$show == "false" ? "invisibleIcon" : "")};
+    animation-name: ${(props) =>
+      props.$show == "false" && props.$currentPage != "/signup" && props.$currentPage != "/login"
+        ? "invisibleIcon"
+        : ""};
     animation-iteration-count: 1;
     animation-duration: 1s;
   }
@@ -273,12 +288,18 @@ const IconBox = styled.section`
   visibility: ${(props) => (props.$show == "false" && props.$hover == "false" ? "hidden" : "visible")};
   opacity: ${(props) => (props.$show == "false" && props.$hover == "false" ? "0" : "1")};
   transition-duration: 1s;
-  animation-name: ${(props) =>
-    props.$homeAnime == "set" || props.$homeAnime == "quiz"
-      ? "showIcon"
-      : props.$settingAnime != "none" || props.$homeAnime != "none"
-      ? "invisibleIcon"
-      : ""};
+  animation-name: ${(props) => {
+    if (props.$currentPage != "/signup" && props.$currentPage != "/login") {
+      // console.log(props.currentPage != "/signup", props.$currentPage != "/login", props.$currentPage, props.$homeAnime);
+      if (props.$homeAnime == "set" || props.$homeAnime == "quiz") {
+        console.log("b");
+        return "showIcon";
+      } else if (props.$settingAnime != "none" || props.$homeAnime != "none") {
+        // console.log("c");
+        return "invisibleIcon";
+      }
+    }
+  }};
   animation-duration: 0.6s;
   animation-iteration-count: 1;
 
@@ -293,7 +314,7 @@ const IconBox = styled.section`
 `;
 
 const Icon = styled.div`
-  font-size: 65px;
+  font-size: 60px;
   &&:hover {
     color: #ff9748;
     cursor: pointer;

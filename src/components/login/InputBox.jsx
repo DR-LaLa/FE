@@ -76,7 +76,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   margin: 5px 0 10px 0;
-  width: 380px;
+  width: 25vw;
   height: 30px;
   border: none;
   border-bottom: 1px solid black;

@@ -13,16 +13,16 @@ export default function TopRank() {
 
   return (
     <ShadowBox>
-      <RankBox $left={19.5}>
-        <span>{topRank[0].nickname}</span>
-        <SeveralRankBox $height={17} $borderRadious={20} $rank={1}>
-          <span>1</span>
-        </SeveralRankBox>
-      </RankBox>
       <RankBox $left={6.5}>
         <span>{topRank[1].nickname}</span>
         <SeveralRankBox $height={10} $borderRadious={17} $left={12} $rank={2}>
           <span>2</span>
+        </SeveralRankBox>
+      </RankBox>
+      <RankBox $left={19.5}>
+        <span>{topRank[0].nickname}</span>
+        <SeveralRankBox $height={17} $borderRadious={20} $rank={1}>
+          <span>1</span>
         </SeveralRankBox>
       </RankBox>
       <RankBox $left={32.5}>
@@ -80,8 +80,10 @@ async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) 
 }
 
 const ShadowBox = styled.section`
+  margin-bottom: 3vh;
+  width: 39vw;
+  display: flex;
   filter: drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.25));
-  /* position: relative; */
 `;
 
 const SeveralRankBox = styled.section`
@@ -97,7 +99,6 @@ const SeveralRankBox = styled.section`
   font-weight: 900;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: rgb(255, 151, 72);
 `;
 
@@ -107,9 +108,9 @@ const RankBox = styled.section`
   font-size: 35px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
-  position: absolute;
-  left: ${(props) => props.$left + "vw"};
-  bottom: 18vh;
+  /* position: absolute; */
+  /* left: ${(props) => props.$left + "vw"}; */
+  /* bottom: 18vh; */
 `;

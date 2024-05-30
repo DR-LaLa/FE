@@ -17,7 +17,7 @@ export default function Main() {
   }, []);
   return (
     <MainProvider>
-      <Header show={"true"} $homeAnime={homeAnime} anime={"none"} />
+      <Header show={"true"} anime={"none"} />
       <MainFrame>
         <Img src="img/유딩.png" alt="" />
       </MainFrame>

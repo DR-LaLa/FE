@@ -49,8 +49,8 @@ const RankBoxStyle = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 12vh;
-  left: 7vw;
+  /* top: 12vh; */
+  /* left: 7vw; */
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(40px);
 `;

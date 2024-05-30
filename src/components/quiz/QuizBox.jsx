@@ -53,13 +53,15 @@ async function GetQuizQuestion(userCount, question, answerArr, explanation, answ
         answer: "",
         result: "",
       };
+
       obj.answer = data.quiz.example[e];
+
       if (e == "answer") {
-        answer(data.quiz.example[e]);
+        answer(data.quiz.example[e]); // 정답 체크
         obj.result = "true";
       } else {
         if (data.quiz.example[e] == null) {
-          setQuizType("o");
+          setQuizType("o"); // 퀴즈 타입 체크 3번째 답 부터 null이 나오면 퀴즈 타입은 ox
         }
         obj.result = "false";
       }

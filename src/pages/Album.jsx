@@ -46,8 +46,6 @@ const Section = styled.section`
 const Title = styled.h1`
   color: #6e4e35;
   font-size: 60px;
-  position: relative;
-  left: 7vw;
 `;
 
 const AlbumBox = styled.section`
@@ -57,5 +55,4 @@ const AlbumBox = styled.section`
   justify-content: center;
   position: relative;
   top: 3vh;
-  left: 8vw;
 `;

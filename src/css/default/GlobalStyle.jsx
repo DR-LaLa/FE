@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
   }
 `;

@@ -8,7 +8,7 @@ export default function MainFrame(props) {
 
 const Main = styled.main`
   width: ${(props) =>
-    props.$currentPage == "/login" || props.$currentPage == "/signup"
+    props.$currentPage == "/login" || props.$currentPage == "/signup" || props.$currentPage == "/quiz"
       ? "100%"
       : props.$currentPage == "/setting"
       ? "70%"
@@ -18,5 +18,4 @@ const Main = styled.main`
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #00ffff4f;
 `;

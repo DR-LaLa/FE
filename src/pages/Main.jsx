@@ -3,26 +3,42 @@ import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { USERDATA, ANIME } from "../components/common/key";
 
 export default function Main() {
   const navigate = useNavigate();
-  const userData = localStorage.getItem(USERDATA) ? localStorage.getItem(USERDATA) : "";
+  const userData = localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : "";
   const homeAnime = localStorage.getItem(ANIME) ? localStorage.getItem(ANIME) : "";
+  const [count, setCount] = useState(0);
   useEffect(() => {
     if (userData == "") {
       navigate("/login");
     }
+    getCount(setCount, userData);
   }, []);
+
+  const imgArr = ["img/유딩.png"];
+
   return (
     <MainProvider>
       <Header show={"true"} anime={"none"} />
       <MainFrame>
-        <Img src="img/유딩.png" alt="" />
+        <Img src={imgArr[count]} alt="" />
       </MainFrame>
     </MainProvider>
   );
+}
+
+async function getCount(setCount, userData) {
+  try {
+    const response = await fetch("json/set.json");
+    // const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
+    const data = await response.json();
+    setCount(Math.floor(data.count / 10));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 const Img = styled.img`

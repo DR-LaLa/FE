@@ -25,6 +25,7 @@ export default function MyRank() {
 
 const MyRankBox = styled.section`
   /* padding: 0 5% 0 5%; */
+  margin-top: 1vh;
   width: 90%;
   height: 8vh;
   border-radius: 20px;

@@ -37,8 +37,8 @@ export default function TopRank() {
 
 async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) {
   try {
-    const response = await fetch("http://localhost:8080/main/rank");
-    // const response = await fetch("json/rank.json");
+    // const response = await fetch("http://localhost:8080/main/rank");
+    const response = await fetch("json/rank.json");
     const data = await response.json();
     updateUsers((arr) => {
       data.forEach((obj) => {
@@ -61,10 +61,10 @@ async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) 
     updateMyData((obj) => {
       const tmp = data.filter((x, n) => x.loginid == userData.loginid)[0];
       const lank = data.findIndex((x, n) => x.loginid == userData.loginid);
-      obj.lank = lank;
-      obj.nickname = tmp.nickname;
-      obj.count = tmp.count;
-      obj.level = tmp.level;
+      // obj.lank = lank;
+      // obj.nickname = tmp.nickname;
+      // obj.count = tmp.count;
+      // obj.level = tmp.level;
     });
     updateTopRank((arr) => {
       const tmp = data.filter((x, n) => n < 3);

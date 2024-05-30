@@ -84,7 +84,7 @@ const SubText = styled.section`
 `;
 
 const SeveralRank = styled.section`
-  margin-top: 1vh;
+  margin: 0.5vh 0 0.5vh 0;
   width: 95%;
   height: 5vh;
   display: flex;

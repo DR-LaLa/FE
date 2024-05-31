@@ -12,7 +12,7 @@ export default function SignUp() {
   return (
     <>
       <MainProvider>
-        <Header show={"false"} />
+        <Header show={"false"} anime={"none"} />
       </MainProvider>
       <MainFrame>
         <SignupProvider>

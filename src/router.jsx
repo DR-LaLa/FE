@@ -7,6 +7,7 @@ import Quiz from "./pages/Quiz";
 import QuizPlay from "./components/quiz/QuizPlay";
 import Rank from "./pages/Rank";
 import Album from "./pages/Album";
+import Search from "./pages/Seartch";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/album",
     element: <Album />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
   },
 ]);
 

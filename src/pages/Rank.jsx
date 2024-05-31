@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import RankBox from "../components/rank/RankBox";
@@ -13,10 +14,17 @@ export default function Rank() {
       </MainProvider>
       <MainFrame>
         <RankProvider>
-          <TopRank />
-          <RankBox />
+          <Section>
+            <TopRank />
+            <RankBox />
+          </Section>
         </RankProvider>
       </MainFrame>
     </>
   );
 }
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+`;

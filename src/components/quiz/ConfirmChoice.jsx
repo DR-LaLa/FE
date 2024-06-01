@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { QUIZDATA } from "../common/key";
 
 export default function ConfirmChoice() {
-  const { userAnswer, setShowModal, setShowExplanation, setUserCount, question, explanation, userCount, answer } =
-    useContext(QuizContext);
+  const { userAnswer, setShowModal, question, explanation, userCount, answer } = useContext(QuizContext);
   const navigate = useNavigate();
 
   const obj = {
@@ -33,12 +32,7 @@ export default function ConfirmChoice() {
           <ButtonStyle
             $use={"confirm"}
             onClick={() => {
-              setUserCount((prev) => {
-                prev += 1;
-                obj.userCount = prev;
-                return prev;
-              });
-              obj.userCount = userCount;
+              obj.userCount = userCount + 1;
               setShowModal(false);
               localStorage.setItem(QUIZDATA, JSON.stringify(obj));
               navigate("/explanation");

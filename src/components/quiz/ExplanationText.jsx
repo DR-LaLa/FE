@@ -49,7 +49,6 @@ export default function ExplanationText() {
 
 async function sendCount(userData, body, navigate) {
   try {
-    console.log(body);
     const response = await fetch(`http://localhost:8080/main/update/${userData.loginid}`, {
       method: "PUT",
       headers: {

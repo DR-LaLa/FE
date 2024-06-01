@@ -32,7 +32,7 @@ export default function ExplanationText() {
           </Button>
           <Button
             onClick={() => {
-              setShowExplanation(false);
+              navigate("/playquiz");
             }}
           >
             다음 퀴즈
@@ -82,7 +82,7 @@ const Question = styled.p`
   padding: 30px;
   width: 40vw;
   border-radius: 20px;
-  font-size: 40px;
+  font-size: 35px;
   background-color: #ffeada;
 `;
 

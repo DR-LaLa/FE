@@ -10,7 +10,11 @@ export default function Explanation() {
       <MainProvider>
         <Header show={"false"} anime={"none"} />
       </MainProvider>
-      <ExplanationText />
+      <QuizProvider>
+        <MainFrame>
+          <ExplanationText />
+        </MainFrame>
+      </QuizProvider>
     </>
   );
 }

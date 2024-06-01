@@ -34,7 +34,7 @@ export default function QuizBox() {
   return (
     <>
       {showModal && <ConfirmChoice />}
-      {!showExplanation ? quizType == "m" ? <MultipleQuiz /> : <OxQuiz /> : <Explanation />}
+      {quizType == "m" ? <MultipleQuiz /> : <OxQuiz />}
     </>
   );
 }

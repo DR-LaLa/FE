@@ -26,7 +26,7 @@ export default function QuizeMain() {
         </TextBox>
         <StartButton
           onClick={() => {
-            navigation("/playQuiz");
+            navigation("/playquiz");
           }}
         >
           START

@@ -8,6 +8,7 @@ import QuizPlay from "./components/quiz/QuizPlay";
 import Rank from "./pages/Rank";
 import Album from "./pages/Album";
 import Search from "./pages/Seartch";
+import Explanation from "./components/quiz/Explanation";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <Search />,
+  },
+  {
+    path: "/explanation",
+    element: <Explanation />,
   },
 ]);
 

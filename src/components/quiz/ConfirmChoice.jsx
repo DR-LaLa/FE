@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { QuizContext } from "../../context/context";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function ConfirmChoice() {
   const { userAnswer, setShowModal, setShowExplanation, setUserCount } = useContext(QuizContext);
+  const navigate = useNavigate();
   return (
     <>
       <ModalBox>
@@ -23,6 +25,7 @@ export default function ConfirmChoice() {
               setUserCount((prev) => (prev = Number(prev) + 1));
               setShowExplanation(true);
               setShowModal(false);
+              navigate("/explanation");
             }}
           >
             확인

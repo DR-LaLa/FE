@@ -28,7 +28,7 @@ export default function ExplanationText() {
         <ButtonBox>
           <Button
             onClick={() => {
-              sendCount(userData, userCount, navigate);
+              sendCount(userData, quizObj.userCount, navigate);
               localStorage.removeItem(QUIZDATA);
             }}
           >
@@ -49,8 +49,9 @@ export default function ExplanationText() {
 
 async function sendCount(userData, body, navigate) {
   try {
+    console.log(body);
     const response = await fetch(`http://localhost:8080/main/update/${userData.loginid}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

@@ -33,8 +33,12 @@ export default function ConfirmChoice() {
           <ButtonStyle
             $use={"confirm"}
             onClick={() => {
-              setUserCount((prev) => (prev = Number(prev) + 1));
-              setShowExplanation(true);
+              setUserCount((prev) => {
+                prev += 1;
+                obj.userCount = prev;
+                return prev;
+              });
+              obj.userCount = userCount;
               setShowModal(false);
               localStorage.setItem(QUIZDATA, JSON.stringify(obj));
               navigate("/explanation");

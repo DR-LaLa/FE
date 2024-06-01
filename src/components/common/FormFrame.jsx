@@ -5,7 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { USERDATA } from "../common/key";
 
 export default function FormFrame(props) {
-  const { signUpInpo, duplication, duplicationState, setDuplicationState } = useContext(SignupContext);
+  const { signUpInpo, duplication, duplicationState, setDuplicationState, passwordCheck, setPasswordCheck } =
+    useContext(SignupContext);
   const { loginInpo } = useContext(LoginContext);
   const [show, setShow] = useState(false);
   const [disabled, setDisabled] = useState("false");
@@ -26,7 +27,7 @@ export default function FormFrame(props) {
     keys.forEach((x) => {
       if (x != "count" && x != "level") {
         if (tmp[x] !== "") {
-          if (duplicationState && duplication) {
+          if (duplicationState && duplication && passwordCheck) {
             setDisabled("true");
           } else {
             setDisabled("false");
@@ -36,7 +37,7 @@ export default function FormFrame(props) {
         }
       }
     });
-  }, [loginInpo, signUpInpo, duplication, duplicationState]);
+  }, [loginInpo, signUpInpo, duplication, duplicationState, passwordCheck]);
 
   return (
     <>

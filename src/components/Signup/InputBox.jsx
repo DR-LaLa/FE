@@ -4,9 +4,16 @@ import { SignupContext } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 
 export default function InputBox() {
-  const { signUpInpo, updateSignUpInpo, duplication, setDuplication, duplicationState, setDuplicationState } =
-    useContext(SignupContext);
-  const [passwordCheck, setPasswordCheck] = useState("true");
+  const {
+    signUpInpo,
+    updateSignUpInpo,
+    duplication,
+    setDuplication,
+    duplicationState,
+    setDuplicationState,
+    passwordCheck,
+    setPasswordCheck,
+  } = useContext(SignupContext);
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [userPassWord, setUserPassWord] = useState("");

@@ -36,6 +36,7 @@ export default function ExplanationText() {
           </Button>
           <Button
             onClick={() => {
+              sendCount(userData, quizObj.userCount, navigate);
               navigate("/playquiz");
             }}
           >

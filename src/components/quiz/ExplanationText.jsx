@@ -30,6 +30,7 @@ export default function ExplanationText() {
             onClick={() => {
               sendCount(userData, quizObj.userCount, navigate);
               localStorage.removeItem(QUIZDATA);
+              navigate("/");
             }}
           >
             나가기
@@ -57,8 +58,6 @@ async function sendCount(userData, body, navigate) {
       },
       body: JSON.stringify(body),
     });
-
-    navigate("/");
   } catch (err) {
     console.log(err);
   }

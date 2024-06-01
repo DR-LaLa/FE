@@ -35,7 +35,7 @@ export default function Header(props) {
               navigate("/");
             }}
           >
-            LOGO
+            Dr.lala
           </Logo>
           {props.anime != "setting" ? (
             <IconBox $homeAnime={anime} $settingAnime={props.anime}>
@@ -90,7 +90,7 @@ export default function Header(props) {
               navigate("/");
             }}
           >
-            LOGO
+            Dr.lala
           </Logo>
           <IconBox $show={props.show} $hover={hoverStyled} $currentPage={currentPage}>
             {iconArr.map((icon) => (

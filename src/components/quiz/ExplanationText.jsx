@@ -4,28 +4,32 @@ import QuizFrame from "../common/QuizFrame";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { USERDATA } from "../common/key";
+import { QUIZDATA } from "../common/key";
 
 export default function ExplanationText() {
   const { userCount, question, explanation, userAnswer, answer, setShowExplanation, showExplanation } =
     useContext(QuizContext);
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem(USERDATA));
+  const quizObj = JSON.parse(localStorage.getItem(QUIZDATA));
+
   return (
     <QuizFrame>
       <ScrollSection>
-        <Question>{`Q. ${question} 이것에 대한 답은 무엇인가?`}</Question>
+        <Question>{`Q. ${quizObj.question} 이것에 대한 답은 무엇인가?`}</Question>
         <AnswerBox>
-          <Answer $ansCheck={"none"}>{`정답: ${answer}`}</Answer>
-          <Answer $ansCheck={userAnswer.result}>{`내가 고른 답: ${userAnswer.answer}`}</Answer>
+          <Answer $ansCheck={"none"}>{`정답: ${quizObj.answer}`}</Answer>
+          <Answer $ansCheck={quizObj.userAnswer.result}>{`내가 고른 답: ${quizObj.userAnswer.answer}`}</Answer>
         </AnswerBox>
         <ExplanationBox>
           <ExplanationTitle>해설</ExplanationTitle>
-          <Explanation>{explanation}</Explanation>
+          <Explanation>{quizObj.explanation}</Explanation>
         </ExplanationBox>
         <ButtonBox>
           <Button
             onClick={() => {
               sendCount(userData, userCount, navigate);
+              localStorage.removeItem(QUIZDATA);
             }}
           >
             나가기

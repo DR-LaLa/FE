@@ -27,10 +27,8 @@ export default function FormFrame(props) {
     keys.forEach((x) => {
       if (x != "count" && x != "level") {
         if (tmp[x] !== "") {
-          if (duplicationState && duplication) {
-            if (passwordCheck == "true" || passwordCheck == "none") {
-              setDisabled("true");
-            }
+          if (duplicationState && duplication && passwordCheck == "true") {
+            setDisabled("true");
           } else {
             setDisabled("false");
           }

@@ -161,7 +161,7 @@ const HeaderStyle = styled.header`
     props.$show == "true" || props.$hover == "true" ? "drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25))" : "transparent"};
   backdrop-filter: ${(props) => (props.$show == "true" || props.$hover == "true" ? "blur(40px)" : "")};
   z-index: 3;
-  transition-duration: 1s;
+  transition-duration: 0.5s;
   animation-name: ${(props) => {
     if (props.$settingAnime == "setting") {
       return "bigger";
@@ -191,7 +191,7 @@ const HeaderStyle = styled.header`
     right: -5.01vw;
     background: rgba(255, 255, 255, 0.83);
     /* backdrop-filter: blur(40px); */
-    transition-duration: 1s;
+    transition-duration: 0.5s;
     visibility: ${(props) => (props.$show == "true" || props.$hover == "true" ? "visible" : "hidden")};
     opacity: ${(props) => (props.$hover == "true" || props.$show == "true" ? "1" : "0")};
     animation-name: ${(props) =>

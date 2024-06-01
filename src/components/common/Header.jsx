@@ -73,11 +73,13 @@ export default function Header(props) {
           $homeAnime={anime}
           $show={props.show}
           $hover={hoverStyled}
-          onMouseEnter={(e) => {
-            setHoverStyled("true");
-          }}
-          onMouseLeave={() => {
-            setHoverStyled("false");
+          onMouseMove={(e) => {
+            console.log(e.clientX);
+            if (e.clientX <= 65) {
+              setHoverStyled("true");
+            } else {
+              setHoverStyled("false");
+            }
           }}
         >
           <Logo
@@ -147,7 +149,7 @@ const iconArr = [
 ];
 
 const HeaderStyle = styled.header`
-  width: ${(props) => (props.$settingAnime == "setting" ? "30vw" : props.$hover == "false" ? "3vw" : "15vw")};
+  width: ${(props) => (props.$settingAnime == "setting" ? "30vw" : "15vw")};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -155,6 +157,7 @@ const HeaderStyle = styled.header`
   align-items: center;
   position: absolute;
   left: 0;
+  /* background-color: yellowgreen; */
   background: ${(props) =>
     props.$show == "true" || props.$hover == "true" ? "rgba(255, 255, 255, 0.8)" : "transparent"};
   filter: ${(props) =>
@@ -287,7 +290,7 @@ const IconBox = styled.section`
   top: ${(props) => (props.$show == "false" ? "20vh" : "")};
   visibility: ${(props) => (props.$show == "false" && props.$hover == "false" ? "hidden" : "visible")};
   opacity: ${(props) => (props.$show == "false" && props.$hover == "false" ? "0" : "1")};
-  transition-duration: 1s;
+  transition-duration: 0.5s;
   animation-name: ${(props) => {
     if (props.$currentPage != "/signup" && props.$currentPage != "/login") {
       // console.log(props.currentPage != "/signup", props.$currentPage != "/login", props.$currentPage, props.$homeAnime);

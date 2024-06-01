@@ -2,10 +2,21 @@ import { useContext } from "react";
 import { QuizContext } from "../../context/context";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { QUIZDATA } from "../common/key";
 
 export default function ConfirmChoice() {
-  const { userAnswer, setShowModal, setShowExplanation, setUserCount } = useContext(QuizContext);
+  const { userAnswer, setShowModal, setShowExplanation, setUserCount, question, explanation, userCount, answer } =
+    useContext(QuizContext);
   const navigate = useNavigate();
+
+  const obj = {
+    userAnswer: userAnswer,
+    question: question,
+    explanation: explanation,
+    userCount: userCount,
+    answer: answer,
+  };
+
   return (
     <>
       <ModalBox>
@@ -25,6 +36,7 @@ export default function ConfirmChoice() {
               setUserCount((prev) => (prev = Number(prev) + 1));
               setShowExplanation(true);
               setShowModal(false);
+              localStorage.setItem(QUIZDATA, JSON.stringify(obj));
               navigate("/explanation");
             }}
           >

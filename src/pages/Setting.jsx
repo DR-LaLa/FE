@@ -7,11 +7,22 @@ import { USERDATA } from "../components/common/key";
 import InpoBox from "../components/setting/InpoBox";
 
 export default function Setting() {
-  const [level, setLevel] = useState("0");
+  const [level, setLevel] = useState(0);
   const [userData, setUserData] = useState(
     localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : ""
   );
   const [showInpo, setShowinpo] = useState("none");
+  const imgArr = [
+    "img/애가.png",
+    "img/유딩.png",
+    "img/초딩.png",
+    "img/중딩.png",
+    "img/고3.png",
+    "img/대1.png",
+    "img/대학원생.png",
+    "img/의사.png",
+    "img/수술의사.png",
+  ];
 
   useEffect(() => {
     setFetch(setLevel, userData);
@@ -21,7 +32,7 @@ export default function Setting() {
       <Header show={"true"} anime={"setting"}>
         <SettingTool>
           <UserInpo $nameLength={userData.nickname.length}>
-            <UserLevel>{`Lv ${level}`}</UserLevel>
+            <UserLevel>{`Lv ${Math.floor(level / 30)}`}</UserLevel>
             <span>{`\u00a0\u00a0${userData.nickname}`}</span>
           </UserInpo>
           <Span
@@ -67,7 +78,7 @@ export default function Setting() {
           </InpoBox>
         )}
         <section>
-          <Img src="img/유딩.png" alt="" />
+          <Img src={imgArr[Math.floor(level / 10)]} alt="" />
         </section>
       </MainFrame>
     </MainProvider>
@@ -78,30 +89,26 @@ async function setFetch(setLevel, userData) {
     // const response = await fetch("json/set.json");
     const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
     const data = await response.json();
-    setLevel(Math.floor(data.count / 30));
+    setLevel(data.count);
   } catch (err) {
     console.log(err);
   }
 }
 const Img = styled.img`
-  width: 42vw;
+  width: 22vw;
   position: relative;
-  top: 3vh;
-  /* left: 10vw; */
   animation-name: move;
   animation-duration: 1s;
   animation-iteration-count: 1;
 
   @keyframes move {
     0% {
-      width: 35vw;
-      top: 5.2vh;
-      left: 0;
+      width: 15vw;
+      left: -5vw;
     }
     100% {
-      width: 42vw;
-      top: 3vh;
-      left: 10vw;
+      width: 22vw;
+      left: 0vw;
     }
   }
 `;

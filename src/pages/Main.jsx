@@ -18,13 +18,23 @@ export default function Main() {
     getCount(setCount, userData);
   }, []);
 
-  const imgArr = ["img/유딩.png"];
+  const imgArr = [
+    "img/애가.png",
+    "img/유딩.png",
+    "img/초딩.png",
+    "img/중딩.png",
+    "img/고3.png",
+    "img/대1.png",
+    "img/대학원생.png",
+    "img/의사.png",
+    "img/수술의사.png",
+  ];
 
   return (
     <MainProvider>
       <Header show={"true"} anime={"none"} />
       <MainFrame>
-        <Img src={imgArr[count]} alt="" />
+        <Img src={imgArr[count]} alt="" $homeAnime={homeAnime} />
       </MainFrame>
     </MainProvider>
   );
@@ -42,22 +52,19 @@ async function getCount(setCount, userData) {
 }
 
 const Img = styled.img`
-  width: 35vw;
+  width: 20vw;
   position: relative;
-  top: 5vh;
   animation-name: ${(props) => (props.$homeAnime == "set" ? "homeMove" : "")};
   animation-duration: 1s;
   animation-iteration-count: 1;
 
   @keyframes homeMove {
     0% {
-      width: 42vw;
-      top: 3vh;
+      width: 22vw;
       left: 10vw;
     }
     100% {
-      width: 35vw;
-      top: 5vh;
+      width: 20vw;
       left: 0;
     }
   }

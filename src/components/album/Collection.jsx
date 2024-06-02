@@ -11,7 +11,7 @@ export default function Collection() {
     "img/중딩.png",
     "img/고3.png",
     "img/대1.png",
-    "img/대학원생.png",
+    "img/인턴.png",
     "img/의사.png",
     "img/수술의사.png",
   ];
@@ -38,7 +38,9 @@ export default function Collection() {
                 });
               }}
             >
-              <Img src={x} alt="" />
+              <ImgBox>
+                <Img src={x} alt="" />
+              </ImgBox>
               <p>{x.replace(/["img", "/", ".png"]/g, "") + " 라라"}</p>
             </SeveralCollection>
           );
@@ -80,15 +82,22 @@ const SeveralCollection = styled.section`
   align-items: center;
 `;
 
-const Img = styled.img`
-  margin-bottom: 1vh;
-  width: 85%;
+const ImgBox = styled.section`
+  width: 7vw;
+  height: 6vw;
   border: 1px solid #ffd1ad;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 43%;
 `;
 
 const MysteryBox = styled.section`
-  width: 30%;
+  width: 7vw;
   height: 30%;
   display: flex;
   flex-direction: column;

@@ -18,10 +18,8 @@ export default function Header(props) {
   useEffect(() => {
     if (localStorage.getItem(ANIME)) {
       setAnime(localStorage.getItem(ANIME));
-      localStorage.removeItem(ANIME);
     }
   }, []);
-  // console.log(currentPage);
   return (
     <>
       {props.show == "true" && (
@@ -42,6 +40,7 @@ export default function Header(props) {
               {iconArr.map((icon) => (
                 <Icon
                   onClick={() => {
+                    localStorage.removeItem(ANIME);
                     if (icon.name == "setting") {
                       navigate("/setting");
                     } else if (icon.name == "quiz") {
@@ -292,12 +291,9 @@ const IconBox = styled.section`
   transition-duration: 0.5s;
   animation-name: ${(props) => {
     if (props.$currentPage != "/signup" && props.$currentPage != "/login") {
-      // console.log(props.currentPage != "/signup", props.$currentPage != "/login", props.$currentPage, props.$homeAnime);
       if (props.$homeAnime == "set" || props.$homeAnime == "quiz") {
-        console.log("b");
         return "showIcon";
       } else if (props.$settingAnime != "none" || props.$homeAnime != "none") {
-        // console.log("c");
         return "invisibleIcon";
       }
     }

@@ -37,8 +37,8 @@ export default function TopRank() {
 
 async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) {
   try {
-    // const response = await fetch("http://localhost:8080/main/rank");
-    const response = await fetch("json/rank.json");
+    const response = await fetch("http://localhost:8080/main/rank");
+    // const response = await fetch("json/rank.json");
     const data = await response.json();
     updateUsers((arr) => {
       data.forEach((obj) => {

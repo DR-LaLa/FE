@@ -74,7 +74,7 @@ export default function Header(props) {
           $show={props.show}
           $hover={hoverStyled}
           onMouseMove={(e) => {
-            if (e.clientX <= 65) {
+            if (e.clientX <= 155) {
               setHoverStyled("true");
             } else {
               setHoverStyled("false");

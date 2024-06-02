@@ -32,8 +32,8 @@ export default function Main() {
 
 async function getCount(setCount, userData) {
   try {
-    const response = await fetch("json/set.json");
-    // const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
+    // const response = await fetch("json/set.json");
+    const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setCount(Math.floor(data.count / 10));
   } catch (err) {

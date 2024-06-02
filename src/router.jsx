@@ -7,7 +7,7 @@ import Quiz from "./pages/Quiz";
 import QuizPlay from "./components/quiz/QuizPlay";
 import Rank from "./pages/Rank";
 import Album from "./pages/Album";
-import Search from "./pages/Seartch";
+import Search from "./pages/Search";
 import Explanation from "./components/quiz/Explanation";
 const router = createBrowserRouter([
   {

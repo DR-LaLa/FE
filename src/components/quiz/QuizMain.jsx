@@ -22,7 +22,7 @@ export default function QuizeMain() {
         <TextBox>
           <QuizTitle>오늘의 퀴즈</QuizTitle>
           <h2>⭐ 건강한 지식 바로알기 ⭐</h2>
-          <AverageText>{`지금 사람들은 ${average}문제 풀었어요`}</AverageText>
+          <AverageText>{`지금 사람들은 25문제 풀었어요`}</AverageText>
         </TextBox>
         <StartButton
           onClick={() => {

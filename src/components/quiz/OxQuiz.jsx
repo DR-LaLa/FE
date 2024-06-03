@@ -19,7 +19,7 @@ export default function OxQuiz() {
   return (
     <>
       <QuizFrame>
-        <Question>{`Q.  ${question} 이것에 대한 정답은 무엇일까요?`}</Question>
+        <Question>{`Q.  ${question}`}</Question>
         <AnswerBox>
           {answerArr.map((a, n) => {
             if (a.answer != null)

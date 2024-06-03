@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { QuizContext } from "../../context/context";
 import styled from "styled-components";
 import QuizFrame from "../common/QuizFrame";
@@ -6,6 +6,17 @@ import QuizFrame from "../common/QuizFrame";
 export default function MultipleQuiz() {
   const { updateUserAnswer, setShowModal, answerArr, updateAnswerArr, question, selectedAns, setSlectedAns, answers } =
     useContext(QuizContext);
+
+  let ref = useRef();
+  useEffect(() => {
+    let set = new Set();
+    while (set.size != 4) {
+      set.add(Math.floor(Math.random() * 4));
+      ref.current = Array.from(set);
+    }
+  }, []);
+
+  console.log(ref);
 
   function select(n) {
     for (let i = 0; i < 4; i++) {
@@ -16,10 +27,11 @@ export default function MultipleQuiz() {
       }
     }
   }
+
   return (
     <>
       <QuizFrame>
-        <Question>{`Q.  ${question} 이것에 대한 정답은 무엇일까요?`}</Question>
+        <Question>{`Q.  ${question}`}</Question>
         <AnswerBox>
           {answerArr.map((a, n) => (
             <Answer
@@ -34,7 +46,7 @@ export default function MultipleQuiz() {
               }}
               key={n}
             >
-              {a.answer}
+              {answerArr[ref.current[n]].answer}
             </Answer>
           ))}
         </AnswerBox>

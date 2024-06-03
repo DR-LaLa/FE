@@ -45,7 +45,7 @@ async function getCount(setCount, userData) {
     // const response = await fetch("json/set.json");
     const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
     const data = await response.json();
-    setCount(Math.floor(data.count / 10));
+    setCount(data.count < 90 ? Math.floor(data.count / 10) : 8);
   } catch (err) {
     console.log(err);
   }
@@ -54,6 +54,7 @@ async function getCount(setCount, userData) {
 const Img = styled.img`
   width: 20vw;
   position: relative;
+  top: 6vh;
   animation-name: ${(props) => (props.$homeAnime == "set" ? "homeMove" : "")};
   animation-duration: 1s;
   animation-iteration-count: 1;

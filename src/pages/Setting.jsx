@@ -78,7 +78,7 @@ export default function Setting() {
           </InpoBox>
         )}
         <section>
-          <Img src={imgArr[Math.floor(level / 10)]} alt="" />
+          <Img src={imgArr[level < 90 ? Math.floor(level / 10) : 8]} alt="" />
         </section>
       </MainFrame>
     </MainProvider>

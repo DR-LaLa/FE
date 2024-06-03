@@ -17,7 +17,7 @@ export default function DetailedPage() {
   ];
   const subText = [
     "커서 의사가 되려는 걸까?",
-    "파란 유치원 복이 잘 어울린다!",
+    "유치원을 제패하는게 라라의 꿈이다",
     "매일 피카츄를 사먹는 것은\n엄마에게는 비밀☆",
     "라라는 세상이 자신을 받아들이기에는 아직 이르다고 생각한다",
     "라라가 오늘 마신 핫식스는 \n모두 몇 캔일까?",
@@ -56,7 +56,6 @@ const TextBox = styled.section`
   height: 80%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
   right: 0;
 `;

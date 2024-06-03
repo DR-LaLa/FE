@@ -8,7 +8,10 @@ export default function MainFrame(props) {
 
 const Main = styled.main`
   width: ${(props) =>
-    props.$currentPage == "/login" || props.$currentPage == "/signup" || props.$currentPage == "/quiz"
+    props.$currentPage == "/login" ||
+    props.$currentPage == "/signup" ||
+    props.$currentPage == "/quiz" ||
+    props.$currentPage == "/playquiz"
       ? "100%"
       : props.$currentPage == "/setting"
       ? "70%"

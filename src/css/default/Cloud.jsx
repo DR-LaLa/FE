@@ -52,7 +52,7 @@ const CloudBox2 = styled.div`
   width: 280px;
   height: 160px;
   position: absolute;
-  top: 15vh;
+  top: 5vh;
   animation-name: move2;
   animation-duration: 5s;
   animation-iteration-count: infinite;
@@ -75,7 +75,7 @@ const CloudBox3 = styled.div`
   height: 160px;
   position: absolute;
   top: 7vh;
-  right: 3vh;
+  right: 63vh;
   animation-name: move3;
   animation-duration: 5s;
   animation-iteration-count: infinite;

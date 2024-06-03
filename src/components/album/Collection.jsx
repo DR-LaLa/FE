@@ -26,7 +26,7 @@ export default function Collection() {
   return (
     <CollectionBox>
       {imgArr.map((x, n) => {
-        if (count / 10 - 1 > n) {
+        if (Math.floor(count / 10) - 1 > n) {
           return (
             <SeveralCollection
               key={n}

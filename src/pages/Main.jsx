@@ -24,7 +24,7 @@ export default function Main() {
     "img/초딩.png",
     "img/중딩.png",
     "img/고3.png",
-    "img/대1.png",
+    "img/대딩.png",
     "img/대학원생.png",
     "img/의사.png",
     "img/수술의사.png",
@@ -34,7 +34,7 @@ export default function Main() {
     <MainProvider>
       <Header show={"true"} anime={"none"} />
       <MainFrame>
-        <Img src={imgArr[count]} alt="" $homeAnime={homeAnime} />
+        <Img src={imgArr[count - 1]} alt="" $homeAnime={homeAnime} />
       </MainFrame>
     </MainProvider>
   );
@@ -45,7 +45,7 @@ async function getCount(setCount, userData) {
     // const response = await fetch("json/set.json");
     const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
     const data = await response.json();
-    setCount(data.count < 90 ? Math.floor(data.count / 10) : 8);
+    setCount(data.count <= 90 ? Math.floor(data.count / 10) : 9);
   } catch (err) {
     console.log(err);
   }

@@ -26,7 +26,7 @@ export default function Collection() {
   return (
     <CollectionBox>
       {imgArr.map((x, n) => {
-        if (count / 10 - 1 > n) {
+        if (Math.floor(count / 10) - 1 > n) {
           return (
             <SeveralCollection
               key={n}
@@ -58,8 +58,8 @@ export default function Collection() {
 }
 
 async function getCount(setCount, userData) {
-  const response = await fetch("json/set.json");
-  // const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
+  // const response = await fetch("json/set.json");
+  const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
   const data = await response.json();
   setCount(data.count);
 }

@@ -26,7 +26,7 @@ export default function Collection() {
   return (
     <CollectionBox>
       {imgArr.map((x, n) => {
-        if (Math.floor(count / 10) - 1 > n) {
+        if (Math.floor(count / 10) >= n) {
           return (
             <SeveralCollection
               key={n}
@@ -48,7 +48,7 @@ export default function Collection() {
           return (
             <MysteryBox key={n}>
               <QuestionMark>?</QuestionMark>
-              <MysteryText>{`해금까지 ${(n + 1) * 10 - count}문제`}</MysteryText>
+              <MysteryText>{`해금까지 ${n * 10 - count}문제`}</MysteryText>
             </MysteryBox>
           );
         }

@@ -75,8 +75,10 @@ async function getMedicineInpo(serchKeyword, updateSearchObj, setEmpty) {
     if (data.length == 0) {
       setEmpty(true);
     }
+    updateSearchObj((arr) => (arr = []));
     data.forEach((obj) => {
       updateSearchObj((arr) => {
+        // arr = [];
         arr.push(obj);
       });
     });

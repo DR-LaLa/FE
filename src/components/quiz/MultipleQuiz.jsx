@@ -16,8 +16,6 @@ export default function MultipleQuiz() {
     }
   }, []);
 
-  console.log(ref);
-
   function select(n) {
     for (let i = 0; i < 4; i++) {
       if (i == n) {
@@ -31,24 +29,27 @@ export default function MultipleQuiz() {
   return (
     <>
       <QuizFrame>
-        <Question>{`Q.  ${question}`}</Question>
+        <Question>{`Q.${question}`}</Question>
         <AnswerBox>
-          {answerArr.map((a, n) => (
-            <Answer
-              ref={(el) => (answers.current[n] = el)}
-              onClick={() => {
-                select(n);
-                updateUserAnswer((obj) => {
-                  obj.answer = a.answer;
-                  obj.result = a.result;
-                });
-                setSlectedAns("true");
-              }}
-              key={n}
-            >
-              {answerArr[ref.current[n]].answer}
-            </Answer>
-          ))}
+          {answerArr.map((a, n) => {
+            return (
+              <Answer
+                ref={(el) => (answers.current[n] = el)}
+                onClick={(e) => {
+                  select(n);
+                  console.log(answerArr[ref.current[n]]);
+                  updateUserAnswer((obj) => {
+                    obj.answer = answerArr[ref.current[n]].answer;
+                    obj.result = answerArr[ref.current[n]].result;
+                  });
+                  setSlectedAns("true");
+                }}
+                key={n}
+              >
+                {answerArr[ref.current[n]].answer}
+              </Answer>
+            );
+          })}
         </AnswerBox>
         <SelectButton
           $slectedState={selectedAns}

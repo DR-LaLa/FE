@@ -173,7 +173,6 @@ const HeaderStyle = styled.header`
     } else if (props.$homeAnime == "quiz") {
       return "quizToHome";
     } else if (props.$hover == "true") {
-      // console.log(props.$hover);
       return "hover";
     } else {
       return "";

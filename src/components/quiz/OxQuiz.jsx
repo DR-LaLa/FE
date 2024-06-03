@@ -6,9 +6,13 @@ import { QuizContext } from "../../context/context";
 export default function OxQuiz() {
   const { updateUserAnswer, setShowModal, answerArr, updateAnswerArr, question, selectedAns, setSlectedAns, answers } =
     useContext(QuizContext);
-  // console.log(answerArr);
-  function select(n) {
-    for (let i = 0; i < 1; i++) {
+  function select(n, ans) {
+    let tmp = answerArr.filter((x) => x.answer == ans)[0];
+    updateUserAnswer((obj) => {
+      obj.answer = tmp.answer;
+      obj.result = tmp.result;
+    });
+    for (let i = 0; i <= 1; i++) {
       if (i == n) {
         answers.current[i].style.setProperty("border", "3px solid #FF9748");
       } else {
@@ -21,27 +25,28 @@ export default function OxQuiz() {
       <QuizFrame>
         <Question>{`Q.  ${question}`}</Question>
         <AnswerBox>
-          {answerArr.map((a, n) => {
-            if (a.answer != null)
-              return (
-                <Answer
-                  $color={a.answer == "o" ? "blue" : "red"}
-                  ref={(el) => (answers.current[n] = el)}
-                  onClick={() => {
-                    select(n);
-                    updateUserAnswer((obj) => {
-                      obj.answer = a.answer;
-                      obj.result = a.result;
-                    });
-                    setSlectedAns("true");
-                  }}
-                  key={n}
-                >
-                  {`${a.answer}`}
-                  <SubText>{a.answer == "o" ? "맞아요" : "아니에요"}</SubText>
-                </Answer>
-              );
-          })}
+          <Answer
+            $color={"blue"}
+            ref={(el) => (answers.current[0] = el)}
+            onClick={() => {
+              select(0, "o");
+              setSlectedAns("true");
+            }}
+          >
+            {"o"}
+            <SubText>{"맞아요"}</SubText>
+          </Answer>
+          <Answer
+            $color={"red"}
+            ref={(el) => (answers.current[1] = el)}
+            onClick={() => {
+              select(1, "x");
+              setSlectedAns("true");
+            }}
+          >
+            {`x`}
+            <SubText>{"아니에요"}</SubText>
+          </Answer>
         </AnswerBox>
         <SelectButton
           $slectedState={selectedAns}

@@ -13,7 +13,7 @@ export default function Setting() {
   );
   const [showInpo, setShowinpo] = useState("none");
   const imgArr = [
-    "img/애가.png",
+    "img/애기.png",
     "img/유딩.png",
     "img/초딩.png",
     "img/중딩.png",

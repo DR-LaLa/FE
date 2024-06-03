@@ -5,6 +5,7 @@ import { useImmer } from "use-immer";
 export default function SearchResult() {
   const [serchKeyword, setSearchKeyword] = useState("");
   const [searchObj, updateSearchObj] = useImmer(obj);
+  const [empty, setEmpty] = useState(false);
   return (
     <>
       <InputBox>
@@ -16,45 +17,49 @@ export default function SearchResult() {
           }}
           onKeyDown={(e) => {
             if (e.key == "Enter") {
-              getMedicineInpo(serchKeyword, updateSearchObj);
+              getMedicineInpo(serchKeyword, updateSearchObj, setEmpty);
             }
           }}
         />
         <Icon
           onClick={() => {
-            getMedicineInpo(serchKeyword, updateSearchObj);
+            getMedicineInpo(serchKeyword, updateSearchObj, setEmpty);
           }}
         />
       </InputBox>
       <SearchResultBox>
-        {searchObj.map((arr, n) => (
-          <Result key={n}>
-            <Margin>
-              <Span>제품명: </Span>
-              <P>{arr.itemName}</P>
-            </Margin>
-            <Margin>
-              <Span>업체명: </Span>
-              <P>{arr.entpName}</P>
-            </Margin>
-            <Margin>
-              <Span>효능: </Span>
-              <P>{arr.efcyQesitm}</P>
-            </Margin>
-            <Margin>
-              <Span>사용법: </Span>
-              <P>{arr.useMethodQesitm}</P>
-            </Margin>
-            <Margin>
-              <Span $warnning={"warnning"}>주의사항: </Span>
-              <P $warnning={"warnning"}>{arr.atpnQesitm}</P>
-            </Margin>
-            <Margin>
-              <Span>보관법: </Span>
-              <P>{arr.depositMethodQesitm}</P>
-            </Margin>
-          </Result>
-        ))}
+        {empty ? (
+          <p>검색 결과가 없습니다</p>
+        ) : (
+          searchObj.map((arr, n) => (
+            <Result key={n}>
+              <Margin>
+                <Span>제품명: </Span>
+                <P>{arr.itemName}</P>
+              </Margin>
+              <Margin>
+                <Span>업체명: </Span>
+                <P>{arr.entpName}</P>
+              </Margin>
+              <Margin>
+                <Span>효능: </Span>
+                <P>{arr.efcyQesitm}</P>
+              </Margin>
+              <Margin>
+                <Span>사용법: </Span>
+                <P>{arr.useMethodQesitm}</P>
+              </Margin>
+              <Margin>
+                <Span $warnning={"warnning"}>주의사항: </Span>
+                <P $warnning={"warnning"}>{arr.atpnQesitm}</P>
+              </Margin>
+              <Margin>
+                <Span>보관법: </Span>
+                <P>{arr.depositMethodQesitm}</P>
+              </Margin>
+            </Result>
+          ))
+        )}
       </SearchResultBox>
     </>
   );
@@ -62,11 +67,14 @@ export default function SearchResult() {
 
 const obj = [];
 
-async function getMedicineInpo(serchKeyword, updateSearchObj) {
+async function getMedicineInpo(serchKeyword, updateSearchObj, setEmpty) {
   try {
     // const response = await fetch("json/search.json");
     const response = await fetch(`http://localhost:8080/main/search/${serchKeyword}`);
     const data = await response.json();
+    if (data.length == 0) {
+      setEmpty(true);
+    }
     data.forEach((obj) => {
       updateSearchObj((arr) => {
         arr.push(obj);
@@ -105,11 +113,19 @@ const Icon = styled(HiSearch)`
 
 const SearchResultBox = styled.section`
   width: 90%;
-  height: 85%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+
+  &&::-webkit-scrollbar {
+    width: 7px;
+  }
+  &&::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #ff9748;
+  }
 `;
 
 const Result = styled.section`

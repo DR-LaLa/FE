@@ -1,48 +1,40 @@
 import { useContext } from "react";
-import { QuizContext } from "../../context/context";
+import { QuizContext, QuizDescriptionContext } from "../../context/context";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { QUIZDATA } from "../common/key";
 
 export default function ConfirmChoice() {
-  const { userAnswer, setShowModal, question, explanation, userCount, answer } = useContext(QuizContext);
+  const { userAnswer, setShowModal } = useContext(QuizContext);
   const navigate = useNavigate();
 
-  const obj = {
-    userAnswer: userAnswer,
-    question: question,
-    explanation: explanation,
-    userCount: userCount,
-    answer: answer,
-  };
+  const { updateQuizObj } = useContext(QuizDescriptionContext);
 
   return (
-    <>
-      <ModalBox>
-        <h3>{`"${userAnswer.answer}"을/를 답으로 선택하시겠습니까?`}</h3>
-        <section>
-          <ButtonStyle
-            $use={"cancel"}
-            onClick={() => {
-              setShowModal(false);
-            }}
-          >
-            취소
-          </ButtonStyle>
-          <ButtonStyle
-            $use={"confirm"}
-            onClick={() => {
-              obj.userCount = userCount + 1;
-              setShowModal(false);
-              localStorage.setItem(QUIZDATA, JSON.stringify(obj));
-              navigate("/explanation");
-            }}
-          >
-            확인
-          </ButtonStyle>
-        </section>
-      </ModalBox>
-    </>
+    <ModalBox>
+      <h3>{`"${userAnswer.answer}"을/를 답으로 선택하시겠습니까?`}</h3>
+      <section>
+        <ButtonStyle
+          $use={"cancel"}
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          취소
+        </ButtonStyle>
+        <ButtonStyle
+          $use={"confirm"}
+          onClick={() => {
+            updateQuizObj((obj) => {
+              obj.userCount = obj.userCount + 1;
+            });
+            setShowModal(false);
+            navigate("/explanation");
+          }}
+        >
+          확인
+        </ButtonStyle>
+      </section>
+    </ModalBox>
   );
 }
 

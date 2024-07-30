@@ -1,31 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { QuizContext } from "../../context/context";
-import { useImmer } from "use-immer";
-import styled from "styled-components";
-import QuizFrame from "../common/QuizFrame";
-import Explanation from "./Explanation";
+import { useContext, useEffect } from "react";
+import { IsLoginContext, QuizContext } from "../../context/context";
 import ConfirmChoice from "./ConfirmChoice";
-import { USERDATA } from "../common/key";
 import MultipleQuiz from "./MultipleQuiz";
 import OxQuiz from "./OxQuiz";
 
 export default function QuizBox() {
-  const {
-    setUserCount,
-    question,
-    setQuestion,
-    setExplanation,
-    updateUserAnswer,
-    setAnswer,
-    showModal,
-    setShowModal,
-    showExplanation,
-    updateAnswerArr,
-    quizType,
-    setQuizType,
-  } = useContext(QuizContext);
+  const { setUserCount, setQuestion, setExplanation, setAnswer, showModal, updateAnswerArr, quizType, setQuizType } =
+    useContext(QuizContext);
 
-  const userData = JSON.parse(localStorage.getItem(USERDATA));
+  const { userData } = useContext(IsLoginContext);
 
   useEffect(() => {
     GetQuizQuestion(setUserCount, setQuestion, updateAnswerArr, setExplanation, setAnswer, userData, setQuizType);
@@ -40,7 +23,7 @@ export default function QuizBox() {
 }
 async function GetQuizQuestion(userCount, question, answerArr, explanation, answer, userData, setQuizType) {
   try {
-    const response = await fetch(`http://localhost:8080/main/quiz/${userData.loginid}`);
+    const response = await fetch(`http://15.164.128.251/main/quiz/${userData.loginid}`);
     // const response = await fetch("json/quiz.json");
     const data = await response.json();
 

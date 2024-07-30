@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MainProvider from "../../provider/MainProvider";
 import Header from "../common/Header";
 import MainFrame from "../common/MainFrame";

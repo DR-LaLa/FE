@@ -1,17 +1,13 @@
 import { useContext } from "react";
-import { QuizContext } from "../../context/context";
+import { IsLoginContext, QuizDescriptionContext } from "../../context/context";
 import QuizFrame from "../common/QuizFrame";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { USERDATA } from "../common/key";
-import { QUIZDATA } from "../common/key";
 
 export default function ExplanationText() {
-  const { userCount, question, explanation, userAnswer, answer, setShowExplanation, showExplanation } =
-    useContext(QuizContext);
   const navigate = useNavigate();
-  const userData = JSON.parse(localStorage.getItem(USERDATA));
-  const quizObj = JSON.parse(localStorage.getItem(QUIZDATA));
+  const { userData } = useContext(IsLoginContext);
+  const { quizObj } = useContext(QuizDescriptionContext);
 
   return (
     <QuizFrame>
@@ -29,7 +25,6 @@ export default function ExplanationText() {
           <Button
             onClick={() => {
               sendCount(userData, quizObj.userCount, navigate);
-              localStorage.removeItem(QUIZDATA);
               navigate("/");
             }}
           >
@@ -49,9 +44,9 @@ export default function ExplanationText() {
   );
 }
 
-async function sendCount(userData, body, navigate) {
+async function sendCount(userData, body) {
   try {
-    const response = await fetch(`http://localhost:8080/main/update/${userData.loginid}`, {
+    const response = await fetch(`http://15.164.128.251/main/update/${userData.loginid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -1,16 +1,18 @@
 import styled from "styled-components";
 import QuizFrame from "../common/QuizFrame";
 import { useContext } from "react";
-import { QuizContext } from "../../context/context";
+import { QuizContext, QuizDescriptionContext } from "../../context/context";
 
 export default function OxQuiz() {
-  const { updateUserAnswer, setShowModal, answerArr, updateAnswerArr, question, selectedAns, setSlectedAns, answers } =
+  const { setShowModal, answerArr, question, selectedAns, setSlectedAns, answers, explanation, userCount, answer } =
     useContext(QuizContext);
+
+  const { updateQuizObj } = useContext(QuizDescriptionContext);
   function select(n, ans) {
     let tmp = answerArr.filter((x) => x.answer == ans)[0];
-    updateUserAnswer((obj) => {
-      obj.answer = tmp.answer;
-      obj.result = tmp.result;
+    updateQuizObj((obj) => {
+      obj.userAnswer.answer = tmp.answer;
+      obj.userAnswer.result = tmp.result;
     });
     for (let i = 0; i <= 1; i++) {
       if (i == n) {
@@ -52,6 +54,13 @@ export default function OxQuiz() {
           $slectedState={selectedAns}
           onClick={() => {
             setShowModal(true);
+
+            updateQuizObj((obj) => {
+              obj.question = question;
+              obj.explanation = explanation;
+              obj.userCount = userCount;
+              obj.answer = answer;
+            });
           }}
         >
           {selectedAns == "false" ? "답을 선택해주세요" : "선택했어요"}

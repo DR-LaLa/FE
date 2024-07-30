@@ -1,13 +1,15 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { QuizContext } from "../../context/context";
+import { useContext, useEffect, useRef } from "react";
+import { QuizContext, QuizDescriptionContext } from "../../context/context";
 import styled from "styled-components";
 import QuizFrame from "../common/QuizFrame";
 
 export default function MultipleQuiz() {
-  const { updateUserAnswer, setShowModal, answerArr, updateAnswerArr, question, selectedAns, setSlectedAns, answers } =
+  const { setShowModal, answerArr, question, selectedAns, setSlectedAns, answers, explanation, userCount, answer } =
     useContext(QuizContext);
 
+  const { updateQuizObj } = useContext(QuizDescriptionContext);
   let ref = useRef();
+
   useEffect(() => {
     let set = new Set();
     while (set.size != 4) {
@@ -35,12 +37,11 @@ export default function MultipleQuiz() {
             return (
               <Answer
                 ref={(el) => (answers.current[n] = el)}
-                onClick={(e) => {
+                onClick={() => {
                   select(n);
-                  console.log(answerArr[ref.current[n]]);
-                  updateUserAnswer((obj) => {
-                    obj.answer = answerArr[ref.current[n]].answer;
-                    obj.result = answerArr[ref.current[n]].result;
+                  updateQuizObj((obj) => {
+                    obj.userAnswer.answer = answerArr[ref.current[n]].answer;
+                    obj.userAnswer.result = answerArr[ref.current[n]].result;
                   });
                   setSlectedAns("true");
                 }}
@@ -55,6 +56,13 @@ export default function MultipleQuiz() {
           $slectedState={selectedAns}
           onClick={() => {
             setShowModal(true);
+
+            updateQuizObj((obj) => {
+              obj.question = question;
+              obj.explanation = explanation;
+              obj.userCount = userCount;
+              obj.answer = answer;
+            });
           }}
         >
           {selectedAns == "false" ? "답을 선택해주세요" : "선택했어요"}

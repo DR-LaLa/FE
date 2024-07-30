@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainProvider from "../provider/MainProvider";
-import { USERDATA } from "../components/common/key";
 import InpoBox from "../components/setting/InpoBox";
+import { IsLoginContext } from "../context/context";
 
 export default function Setting() {
   const [level, setLevel] = useState(0);
-  const [userData, setUserData] = useState(
-    localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : ""
-  );
+  const { userData } = useContext(IsLoginContext);
+
   const [showInpo, setShowinpo] = useState("none");
   const imgArr = [
     "img/애기.png",
@@ -18,7 +17,7 @@ export default function Setting() {
     "img/초딩.png",
     "img/중딩.png",
     "img/고3.png",
-    "img/대1.png",
+    "img/대딩.png",
     "img/대학원생.png",
     "img/의사.png",
     "img/수술의사.png",
@@ -38,17 +37,9 @@ export default function Setting() {
           <Span
             onClick={() => {
               setShowinpo("logout");
-              // localStorage.removeItem(USERDATA);
             }}
           >
             로그아웃
-          </Span>
-          <Span
-            onClick={() => {
-              setShowinpo("developer");
-            }}
-          >
-            개발자 정보
           </Span>
           <Span
             onClick={() => {
@@ -63,13 +54,6 @@ export default function Setting() {
         {showInpo == "logout" && (
           <InpoBox close={setShowinpo} state={showInpo}>
             <span>로그아웃 하시겠습니까?</span>
-          </InpoBox>
-        )}
-        {showInpo == "developer" && (
-          <InpoBox close={setShowinpo}>
-            <span>FRONTEND 서예린</span>
-            <span>BACKEND 황서은</span>
-            <span>BACKEND 류동하</span>
           </InpoBox>
         )}
         {showInpo == "email" && (
@@ -87,7 +71,7 @@ export default function Setting() {
 async function setFetch(setLevel, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setLevel(data.count);
   } catch (err) {

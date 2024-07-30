@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { USERDATA } from "../common/key";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { IsLoginContext } from "../../context/context";
 
 export default function InpoBox(props) {
   const navigate = useNavigate();
+  const { updateUserData } = useContext(IsLoginContext);
   return (
     <>
       <InpoBoxStyle>
@@ -13,7 +15,9 @@ export default function InpoBox(props) {
             <Button
               $bgColor={"#ff9748"}
               onClick={() => {
-                localStorage.removeItem(USERDATA);
+                updateUserData((obj) => {
+                  obj.isLogin = false;
+                });
                 navigate("/");
               }}
             >

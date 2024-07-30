@@ -4,17 +4,19 @@ import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { IsLoginContext } from "../context/context";
+import { AnimationContext, IsLoginContext } from "../context/context";
 
 export default function Main() {
-  const navigate = useNavigate();
   const { userData } = useContext(IsLoginContext);
+  const { setPrevPage } = useContext(AnimationContext);
   const [count, setCount] = useState(0);
+  const navigate = useNavigate();
   useEffect(() => {
     if (!userData.isLogin) {
       navigate("/login");
     }
     getCount(setCount, userData);
+    setPrevPage("/");
   }, []);
 
   const imgArr = [

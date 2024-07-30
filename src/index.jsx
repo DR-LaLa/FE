@@ -5,6 +5,7 @@ import GlobalStyle from "./css/default/GlobalStyle";
 import Cloud from "./css/default/Cloud";
 import IsLoginProvider from "./provider/IsLoginProvider";
 import QuizDescriptionProvider from "./provider/QuizDescriptionProvider";
+import AnimationProvider from "./provider/AnimationProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <GlobalStyle />
     <IsLoginProvider>
       <QuizDescriptionProvider>
-        <RouterProvider router={router} />
+        <AnimationProvider>
+          <RouterProvider router={router} />
+        </AnimationProvider>
       </QuizDescriptionProvider>
     </IsLoginProvider>
   </>

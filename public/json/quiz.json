@@ -1,21 +1,17 @@
 {
   "user": {
-    "count": 0
+    "count": 12
   },
   "quiz": {
     "id": 1,
-
-    "category": "medicine",
-
-    "problem": "aaaaaaaaaaaaaaaa",
-
+    "category": "건강",
+    "problem": "비타민 B12 결핍 시 나타날 수 있는 증상은 무엇인가?",
+    "explanation": "비타민 B12는 적혈구 생성에 중요한 역할을 합니다. 결핍될 경우 악성 빈혈이 발생할 수 있으며, 이는 피로감, 숨 가쁨, 피부 창백 등의 증상을 유발합니다. 비타민 B12는 주로 육류, 생선, 달걀, 유제품 등 동물성 식품에 풍부합니다.",
     "example": {
-      "answer": "o",
-      "a": "a",
-      "b": "q",
-      "c": "g"
-    },
-
-    "explanation": "kajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhfkajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhfkajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhfkajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhfkajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhfkajsssssssssnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssdhfakjsdhf"
+      "answer": "빈혈",
+      "example_a": "야맹증",
+      "example_b": "구내염",
+      "example_c": "탈모"
+    }
   }
 }

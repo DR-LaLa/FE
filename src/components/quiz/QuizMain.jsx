@@ -79,7 +79,7 @@ const TextBox = styled.section`
 const QuizTitle = styled.h1`
   @font-face {
     font-family: "ONE-Mobile-POP";
-    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format("woff");
+    src: url("httpss://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format("woff");
     font-weight: normal;
     font-style: normal;
   }

@@ -8,7 +8,7 @@ export default function Search() {
   return (
     <>
       <MainProvider>
-        <Header show={"true"} anime={"none"} />
+        <Header show={"true"} transform={"show"} />
       </MainProvider>
       <MainFrame>
         <SearchBox>

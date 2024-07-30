@@ -4,13 +4,11 @@ import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { ANIME } from "../components/common/key";
 import { IsLoginContext } from "../context/context";
 
 export default function Main() {
   const navigate = useNavigate();
   const { userData } = useContext(IsLoginContext);
-  const homeAnime = localStorage.getItem(ANIME) ? localStorage.getItem(ANIME) : "";
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!userData.isLogin) {
@@ -33,9 +31,9 @@ export default function Main() {
 
   return (
     <MainProvider>
-      <Header show={"true"} anime={"none"} />
+      <Header show={"true"} anime={"none"} transform={"show"} />
       <MainFrame>
-        <Img src={imgArr[count - 1]} alt="" $homeAnime={homeAnime} />
+        <Img src={imgArr[count ? count - 1 : 0]} alt="" />
       </MainFrame>
     </MainProvider>
   );
@@ -44,7 +42,7 @@ export default function Main() {
 async function getCount(setCount, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`https://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setCount(data.count <= 90 ? Math.floor(data.count / 10) : 9);
   } catch (err) {
@@ -56,6 +54,7 @@ const Img = styled.img`
   width: 20vw;
   position: relative;
   top: 6vh;
+  /* transition-duration: 0.7s; */
   animation-name: ${(props) => (props.$homeAnime == "set" ? "homeMove" : "")};
   animation-duration: 1s;
   animation-iteration-count: 1;

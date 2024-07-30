@@ -7,7 +7,7 @@ export default function Quiz() {
   return (
     <>
       <MainProvider>
-        <Header show={"false"} anime={"quiz"} />
+        <Header show={"false"} transform={"bigger"} />
       </MainProvider>
       <MainFrame>
         <QuizMain />

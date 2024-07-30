@@ -78,7 +78,8 @@ export default function LoginForm() {
 
 async function loginFunction(loginInpo, updateUserData, navigate) {
   try {
-    const response = await fetch("http://15.164.128.251/signin", {
+    console.log(loginInpo);
+    const response = await fetch("https://15.164.128.251/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,12 +87,13 @@ async function loginFunction(loginInpo, updateUserData, navigate) {
       body: JSON.stringify(loginInpo),
     });
 
+    // const response = await fetch("json/login.json");
     const data = await response.json();
 
     if (response.status == 500) {
       throw new Error(404);
     }
-
+    console.log("a");
     updateUserData((obj) => {
       obj.loginid = data.loginid;
       obj.nickname = data.nickname;

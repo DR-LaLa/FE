@@ -8,7 +8,7 @@ export default function SignUp() {
   return (
     <>
       <MainProvider>
-        <Header show={"false"} anime={"none"} />
+        <Header show={"false"} transform={"bigger"} />
       </MainProvider>
       <MainFrame>
         <SignupProvider>

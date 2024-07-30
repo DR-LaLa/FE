@@ -22,6 +22,7 @@ export default function SignUpForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // console.log(duplicationState);
     if (duplicationState && passwordCheck == "true" && signUpInpo.password === userPassWord) {
       setDisabled("true");
     } else {
@@ -57,8 +58,9 @@ export default function SignUpForm() {
               onClick={(e) => {
                 e.preventDefault();
                 if (signUpInpo.loginid != "") {
+                  // console.log(duplication);
                   duplicationCheck(signUpInpo.loginid, setDuplication, setDuplicationState);
-                  console.log(duplication);
+                  // console.log(duplication);
                 } else {
                   setIsEmpty(true);
                 }
@@ -130,7 +132,7 @@ export default function SignUpForm() {
 
 async function duplicationCheck(body, setDuplication, setDuplicationState) {
   try {
-    const response = await fetch("http://15.164.128.251/signup/confirmid", {
+    const response = await fetch("https://15.164.128.251/signup/confirmid", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,6 +142,7 @@ async function duplicationCheck(body, setDuplication, setDuplicationState) {
     let data = await response.json();
     setDuplication(data.isSuccess);
     setDuplicationState(true);
+    console.log("a");
   } catch (err) {
     console.log(err);
   }
@@ -147,7 +150,7 @@ async function duplicationCheck(body, setDuplication, setDuplicationState) {
 
 async function signUpFunction(body, navigate) {
   try {
-    const response = await fetch("http://15.164.128.251/signup", {
+    const response = await fetch("https://15.164.128.251/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

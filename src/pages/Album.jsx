@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Albumleft from "../components/album/AlbumLeft";
-import AlbumFrame from "../components/album/AlbumLeft";
+// import AlbumFrame from "../components/album/AlbumLeft";
 import AlbumRight from "../components/album/AlbumRight";
 import Collection from "../components/album/Collection";
 import DetailedPage from "../components/album/DetailedPage";
@@ -13,7 +13,7 @@ export default function Album() {
   return (
     <>
       <MainProvider>
-        <Header show={"true"} anime={"none"} />
+        <Header show={"true"} transform={"show"} />
       </MainProvider>
       <MainFrame>
         <Section>

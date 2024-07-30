@@ -7,10 +7,10 @@ import InpoBox from "../components/setting/InpoBox";
 import { IsLoginContext } from "../context/context";
 
 export default function Setting() {
-  const [level, setLevel] = useState(0);
   const { userData } = useContext(IsLoginContext);
-
+  const [level, setLevel] = useState(0);
   const [showInpo, setShowinpo] = useState("none");
+  const [imgSize, setImgSize] = useState(0);
   const imgArr = [
     "img/애기.png",
     "img/유딩.png",
@@ -25,11 +25,12 @@ export default function Setting() {
 
   useEffect(() => {
     setFetch(setLevel, userData);
+    setTimeout(setImgSize(5), 2000);
   }, []);
   return (
     <MainProvider>
-      <Header show={"true"} anime={"setting"}>
-        <SettingTool>
+      <Header show={"true"} transform={"set"}>
+        <>
           <UserInpo $nameLength={userData.nickname.length}>
             <UserLevel>{`Lv ${Math.floor(level / 30)}`}</UserLevel>
             <span>{`\u00a0\u00a0${userData.nickname}`}</span>
@@ -48,7 +49,7 @@ export default function Setting() {
           >
             문의 메일
           </Span>
-        </SettingTool>
+        </>
       </Header>
       <MainFrame>
         {showInpo == "logout" && (
@@ -62,7 +63,7 @@ export default function Setting() {
           </InpoBox>
         )}
         <section>
-          <Img src={imgArr[level < 90 ? Math.floor(level / 10) : 8]} alt="" />
+          <Img src={imgArr[level < 90 ? Math.floor(level / 10) : 0]} alt="" $imgSize={imgSize} />
         </section>
       </MainFrame>
     </MainProvider>
@@ -71,7 +72,7 @@ export default function Setting() {
 async function setFetch(setLevel, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`https://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setLevel(data.count);
   } catch (err) {
@@ -79,50 +80,10 @@ async function setFetch(setLevel, userData) {
   }
 }
 const Img = styled.img`
-  width: 22vw;
+  width: ${(props) => (props.$imgSize == 0 ? "20vw" : "25vw")};
   position: relative;
-  animation-name: move;
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-
-  @keyframes move {
-    0% {
-      width: 15vw;
-      left: -5vw;
-    }
-    100% {
-      width: 22vw;
-      left: 0vw;
-    }
-  }
-`;
-
-const SettingTool = styled.section`
-  width: 100%;
-  height: 80%;
-  font-size: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  animation-name: showText;
-  animation-iteration-count: 1;
-  animation-duration: 0.6s;
-  transition-duration: 0.6s;
-
-  @keyframes showText {
-    0% {
-      display: none;
-      color: transparent;
-    }
-    50% {
-      display: none;
-      color: #00000070;
-    }
-    100% {
-      color: black;
-    }
-  }
+  transition-duration: 0.7s;
+  /* transform: translateX(${(props) => `${props.$imgSize}vw`}); */
 `;
 
 const UserInpo = styled.section`

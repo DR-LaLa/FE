@@ -3,16 +3,17 @@ import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { USERDATA, ANIME } from "../components/common/key";
+import { useContext, useEffect, useState } from "react";
+import { ANIME } from "../components/common/key";
+import { IsLoginContext } from "../context/context";
 
 export default function Main() {
   const navigate = useNavigate();
-  const userData = localStorage.getItem(USERDATA) ? JSON.parse(localStorage.getItem(USERDATA)) : "";
+  const { userData } = useContext(IsLoginContext);
   const homeAnime = localStorage.getItem(ANIME) ? localStorage.getItem(ANIME) : "";
   const [count, setCount] = useState(0);
   useEffect(() => {
-    if (userData == "") {
+    if (!userData.isLogin) {
       navigate("/login");
     }
     getCount(setCount, userData);
@@ -43,7 +44,7 @@ export default function Main() {
 async function getCount(setCount, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`http://localhost:8080/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setCount(data.count <= 90 ? Math.floor(data.count / 10) : 9);
   } catch (err) {

@@ -1,12 +1,8 @@
-import { useState } from "react";
-import FormFrame from "../components/common/FormFrame";
-import styled from "styled-components";
 import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
-import InputBox from "../components/Signup/InputBox";
 import SignupProvider from "../provider/SignupProvider";
-import LoginProvider from "../provider/LoginProvider";
+import SignUpForm from "../components/SignUp/SignUpForm";
 
 export default function SignUp() {
   return (
@@ -16,11 +12,7 @@ export default function SignUp() {
       </MainProvider>
       <MainFrame>
         <SignupProvider>
-          <LoginProvider>
-            <FormFrame>
-              <InputBox />
-            </FormFrame>
-          </LoginProvider>
+          <SignUpForm />
         </SignupProvider>
       </MainFrame>
     </>

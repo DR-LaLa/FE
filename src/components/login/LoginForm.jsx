@@ -78,16 +78,15 @@ export default function LoginForm() {
 
 async function loginFunction(loginInpo, updateUserData, navigate) {
   try {
-    console.log(loginInpo);
-    const response = await fetch("https://15.164.128.251/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginInpo),
-    });
+    // const response = await fetch("http://15.164.128.251/signin", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(loginInpo),
+    // });
 
-    // const response = await fetch("json/login.json");
+    const response = await fetch("json/login.json");
     const data = await response.json();
 
     if (response.status == 500) {

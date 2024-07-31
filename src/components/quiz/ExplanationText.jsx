@@ -46,7 +46,7 @@ export default function ExplanationText() {
 
 async function sendCount(userData, body) {
   try {
-    const response = await fetch(`http://15.164.128.251/main/update/${userData.loginid}`, {
+    const response = await fetch(`http://15.164.128.251:8080/main/update/${userData.loginid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

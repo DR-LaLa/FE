@@ -70,7 +70,7 @@ const obj = [];
 async function getMedicineInpo(serchKeyword, updateSearchObj, setEmpty) {
   try {
     // const response = await fetch("json/search.json");
-    const response = await fetch(`http://15.164.128.251/main/search/${serchKeyword}`);
+    const response = await fetch(`http://15.164.128.251:8080/main/search/${serchKeyword}`);
     const data = await response.json();
     if (data.length == 0) {
       setEmpty(true);

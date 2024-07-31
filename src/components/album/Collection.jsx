@@ -58,7 +58,7 @@ export default function Collection() {
 
 async function getCount(setCount, userData) {
   // const response = await fetch("json/set.json");
-  const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
+  const response = await fetch(`http://15.164.128.251:8080/main/quizcount/${userData.loginid}`);
   const data = await response.json();
   setCount(data.count);
 }

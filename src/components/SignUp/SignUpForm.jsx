@@ -132,7 +132,7 @@ export default function SignUpForm() {
 
 async function duplicationCheck(body, setDuplication, setDuplicationState) {
   try {
-    const response = await fetch("http://15.164.128.251/signup/confirmid", {
+    const response = await fetch("http://15.164.128.251:8080/signup/confirmid", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -150,7 +150,7 @@ async function duplicationCheck(body, setDuplication, setDuplicationState) {
 
 async function signUpFunction(body, navigate) {
   try {
-    const response = await fetch("http://15.164.128.251/signup", {
+    const response = await fetch("http://15.164.128.251:8080/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

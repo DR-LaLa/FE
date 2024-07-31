@@ -78,7 +78,7 @@ export default function LoginForm() {
 
 async function loginFunction(loginInpo, updateUserData, navigate) {
   try {
-    // const response = await fetch("http://15.164.128.251/signin", {
+    // const response = await fetch("http://15.164.128.251:8080/signin", {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",

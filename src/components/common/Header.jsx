@@ -3,45 +3,44 @@ import { PiRankingFill } from "react-icons/pi";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { HiSearch } from "react-icons/hi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AnimationContext } from "../../context/context";
 
 export default function Header(props) {
   const navigate = useNavigate();
+  const currentPage = useLocation().pathname;
   const [hoverStyled, setHoverStyled] = useState("false");
-  const [settingAnime, setSettingAnime] = useState(-300);
-  const [setWidth, setSetWidth] = useState(props.transform == "set" ? 30 : 17);
+  const [settingAnime, setSettingAnime] = useState(true);
+  const { setPrevPage, prevPage } = useContext(AnimationContext);
+
   useEffect(() => {
-    setTimeout(setSettingAnime(0), 2000);
+    setTimeout(setSettingAnime(false), 2000);
   }, []);
   return (
     <>
       {props.show == "true" && (
-        <HeaderStyle $tarnsform={props.transform} $setWidth={setWidth}>
+        <HeaderStyle $prevPage={prevPage} $currentPage={currentPage} $setAnime={settingAnime}>
           <Logo
             $show={props.show}
-            $position={setWidth}
-            $showAnime={settingAnime}
+            $prevPage={prevPage}
+            $currentPage={currentPage}
+            $setAnime={settingAnime}
             onClick={() => {
-              setSetWidth(17);
-              if (props.transform == "set") {
-                setSettingAnime(1);
-                setSetWidth(17);
-              }
-              setTimeout(() => {
-                navigate("/");
-              }, 700);
+              setPrevPage(currentPage);
+              navigate("/");
             }}
           >
             Dr.LaLa
           </Logo>
-          <HeaderStyle2 $show={props.show} $tarnsform={props.transform} $showAnime={settingAnime}>
+          <HeaderStyle2 $show={props.show} $prevPage={prevPage} $currentPage={currentPage} $setAnime={settingAnime}>
             {props.transform != "set" ? (
               <IconBox>
                 {iconArr.map((icon) => (
                   <Icon
                     onClick={() => {
+                      setPrevPage(currentPage);
                       if (icon.name == "setting") {
                         navigate("/setting");
                       } else if (icon.name == "quiz") {
@@ -62,15 +61,13 @@ export default function Header(props) {
                 ))}
               </IconBox>
             ) : (
-              <SettingTool $showAnime={settingAnime}>{props.children}</SettingTool>
+              <SettingTool>{props.children}</SettingTool>
             )}
           </HeaderStyle2>
         </HeaderStyle>
       )}
       {props.show == "false" && (
         <HeaderStyle
-          $setWidth={setWidth}
-          $tarnsform={props.transform}
           onMouseMove={(e) => {
             if (e.clientX <= 155) {
               setHoverStyled("true");
@@ -81,19 +78,19 @@ export default function Header(props) {
         >
           <Logo
             $show={props.show}
-            $position={setWidth}
-            $showAnime={settingAnime}
             onClick={() => {
+              setPrevPage(currentPage);
               navigate("/");
             }}
           >
             Dr.LaLa
           </Logo>
-          <HeaderStyle2 $show={props.show} $hover={hoverStyled} $tarnsform={props.transform}>
+          <HeaderStyle2 $show={props.show} $hover={hoverStyled} $currentPage={currentPage}>
             <IconBox $show={props.show} $hover={hoverStyled}>
               {iconArr.map((icon) => (
                 <Icon
                   onClick={() => {
+                    setPrevPage(currentPage);
                     if (icon.name == "setting") {
                       navigate("/setting");
                     } else if (icon.name == "quiz") {
@@ -147,7 +144,19 @@ const iconArr = [
 ];
 
 const HeaderStyle = styled.header`
-  width: ${(props) => `${props.$setWidth}vw`};
+  ${(props) => {
+    if (props.$currentPage == "/setting") {
+      console.log("a");
+      return `width: ${props.$setAnime ? "16vw" : "30vw"};`;
+    } else {
+      if (props.$currentPage == "/" && props.$prevPage == "/setting") {
+        console.log(props.$setAnime);
+        return `width: ${props.$setAnime ? "30vw" : "16vw"};`;
+      }
+      console.log("c");
+      return "width: 16vw;";
+    }
+  }}
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -173,12 +182,8 @@ const HeaderStyle2 = styled.section`
   z-index: 3;
   transition-duration: 0.7s;
   transform: ${(props) => {
-    if (props.$tarnsform == "bigger") {
+    if (props.$currentPage == "/signup" || props.$currentPage == "/login" || props.$currentPage == "/quiz") {
       return `translateX(${props.$hover == "true" ? "0px" : "-200px"})`;
-    } else if (props.$tarnsform == "show") {
-      return "translateX(0px)";
-    } else if (props.$tarnsform == "set") {
-      return `translateX(${props.$showAnime}px)`;
     }
   }};
   &&::after {
@@ -202,7 +207,13 @@ const Logo = styled.h1`
   font-size: 40px;
   position: absolute;
   top: 8vh;
-  left: ${(props) => (props.$position == 30 ? "11vw" : "5.5vw")};
+  ${(props) => {
+    if (props.$currentPage == "/setting" && props.$prevPage == "/") {
+      return `left: ${props.$setAnime ? "4.1vw" : "11vw"};`;
+    } else if (props.$currentPage == "/" && props.$prevPage == "/setting") {
+      return `left: ${props.$setAnime ? "11vw" : "4.1vw"};`;
+    }
+  }}
   transition-duration: 0.7s;
 
   z-index: 4;
@@ -217,8 +228,7 @@ const IconBox = styled.section`
   justify-content: space-evenly;
   align-items: center;
   visibility: ${(props) => (props.$show == "false" && props.$hover == "false" ? "hidden" : "visible")};
-
-  /* opacity: ${(props) => (props.$show == "false" && props.$hover == "false" ? "0" : "1")}; */
+  opacity: ${(props) => (props.$show == "false" && props.$hover == "false" ? "0" : "1")};
   transition-duration: 0.5s;
 
   @keyframes showIcon {
@@ -249,5 +259,4 @@ const SettingTool = styled.section`
   align-items: center;
 
   transition-duration: 0.7s;
-  opacity: ${(props) => (props.$showAnime == 1 ? 0 : 1)};
 `;

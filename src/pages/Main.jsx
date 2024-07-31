@@ -2,21 +2,23 @@ import styled from "styled-components";
 import Header from "../components/common/Header";
 import MainFrame from "../components/common/MainFrame";
 import MainProvider from "../provider/MainProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AnimationContext, IsLoginContext } from "../context/context";
 
 export default function Main() {
   const { userData } = useContext(IsLoginContext);
-  const { setPrevPage } = useContext(AnimationContext);
-  const [count, setCount] = useState(0);
+  const { prevPage } = useContext(AnimationContext);
+  const currentPage = useLocation().pathname;
   const navigate = useNavigate();
+  const [imgSize, setImgSize] = useState(true);
+  const [count, setCount] = useState(0);
   useEffect(() => {
     if (!userData.isLogin) {
       navigate("/login");
     }
+    setTimeout(setImgSize(false), 2000);
     getCount(setCount, userData);
-    setPrevPage("/");
   }, []);
 
   const imgArr = [
@@ -33,9 +35,15 @@ export default function Main() {
 
   return (
     <MainProvider>
-      <Header show={"true"} anime={"none"} transform={"show"} />
+      <Header show={"true"} anime={"none"} />
       <MainFrame>
-        <Img src={imgArr[count ? count - 1 : 0]} alt="" />
+        <Img
+          src={imgArr[count ? count - 1 : 0]}
+          alt=""
+          $imgSize={imgSize}
+          $currentPage={currentPage}
+          $prevPage={prevPage}
+        />
       </MainFrame>
     </MainProvider>
   );
@@ -44,7 +52,7 @@ export default function Main() {
 async function getCount(setCount, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`https://15.164.128.251/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setCount(data.count <= 90 ? Math.floor(data.count / 10) : 9);
   } catch (err) {
@@ -53,22 +61,19 @@ async function getCount(setCount, userData) {
 }
 
 const Img = styled.img`
-  width: 20vw;
+  width: ${(props) => {
+    if (props.$currentPage == "/" && props.$prevPage == "/setting") {
+      return props.$imgSize ? "25vw" : "20vw";
+    } else {
+      return "20vw";
+    }
+  }};
   position: relative;
   top: 6vh;
-  /* transition-duration: 0.7s; */
-  animation-name: ${(props) => (props.$homeAnime == "set" ? "homeMove" : "")};
-  animation-duration: 1s;
-  animation-iteration-count: 1;
-
-  @keyframes homeMove {
-    0% {
-      width: 22vw;
-      left: 10vw;
+  transition-duration: 0.7s;
+  transform: ${(props) => {
+    if (props.$currentPage == "/" && props.$prevPage == "/setting") {
+      return props.$imgSize ? "translate(7.5vw, -5vh)" : "translate(0)";
     }
-    100% {
-      width: 20vw;
-      left: 0;
-    }
-  }
+  }};
 `;

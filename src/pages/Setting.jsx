@@ -4,13 +4,16 @@ import MainFrame from "../components/common/MainFrame";
 import { useContext, useEffect, useState } from "react";
 import MainProvider from "../provider/MainProvider";
 import InpoBox from "../components/setting/InpoBox";
-import { IsLoginContext } from "../context/context";
+import { AnimationContext, IsLoginContext } from "../context/context";
+import { useLocation } from "react-router-dom";
 
 export default function Setting() {
   const { userData } = useContext(IsLoginContext);
+  const { prevPage } = useContext(AnimationContext);
+  const currentPage = useLocation().pathname;
   const [level, setLevel] = useState(0);
   const [showInpo, setShowinpo] = useState("none");
-  const [imgSize, setImgSize] = useState(0);
+  const [imgSize, setImgSize] = useState(true);
   const imgArr = [
     "img/애기.png",
     "img/유딩.png",
@@ -24,8 +27,8 @@ export default function Setting() {
   ];
 
   useEffect(() => {
+    setTimeout(setImgSize(false), 2000);
     setFetch(setLevel, userData);
-    setTimeout(setImgSize(5), 2000);
   }, []);
   return (
     <MainProvider>
@@ -63,7 +66,13 @@ export default function Setting() {
           </InpoBox>
         )}
         <section>
-          <Img src={imgArr[level < 90 ? Math.floor(level / 10) : 0]} alt="" $imgSize={imgSize} />
+          <Img
+            src={imgArr[level < 90 ? Math.floor(level / 10) : 8]}
+            alt=""
+            $imgSize={imgSize}
+            $currentPage={currentPage}
+            $prevPage={prevPage}
+          />
         </section>
       </MainFrame>
     </MainProvider>
@@ -72,7 +81,7 @@ export default function Setting() {
 async function setFetch(setLevel, userData) {
   try {
     // const response = await fetch("json/set.json");
-    const response = await fetch(`https://15.164.128.251/main/quizcount/${userData.loginid}`);
+    const response = await fetch(`http://15.164.128.251/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setLevel(data.count);
   } catch (err) {
@@ -80,10 +89,17 @@ async function setFetch(setLevel, userData) {
   }
 }
 const Img = styled.img`
-  width: ${(props) => (props.$imgSize == 0 ? "20vw" : "25vw")};
+  width: ${(props) => {
+    if (props.$currentPage == "/setting" && props.$prevPage == "/") {
+      return props.$imgSize ? "20vw" : "25vw";
+    } else {
+      return "25vw";
+    }
+  }};
   position: relative;
+  top: 6.3vh;
   transition-duration: 0.7s;
-  /* transform: translateX(${(props) => `${props.$imgSize}vw`}); */
+  transform: translate(${(props) => (props.$imgSize ? "-6vw" : "0, -5vh")});
 `;
 
 const UserInpo = styled.section`

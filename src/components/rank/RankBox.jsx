@@ -1,12 +1,10 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { RankContext } from "../../context/context";
-import { USERDATA } from "../common/key";
 import MyRank from "./MyRank";
 
 export default function RankBox() {
-  const { users, updateMyData } = useContext(RankContext);
-  const userData = JSON.parse(localStorage.getItem(USERDATA));
+  const { users } = useContext(RankContext);
 
   return (
     <>
@@ -49,8 +47,6 @@ const RankBoxStyle = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-  /* top: 12vh; */
-  /* left: 7vw; */
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(40px);
 `;
@@ -80,7 +76,6 @@ const SubText = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: #e3f4c1; */
 `;
 
 const SeveralRank = styled.section`

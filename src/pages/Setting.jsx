@@ -80,7 +80,6 @@ export default function Setting() {
 }
 async function setFetch(setLevel, userData) {
   try {
-    // const response = await fetch("json/set.json");
     const response = await fetch(`http://15.164.128.251:8080/main/quizcount/${userData.loginid}`);
     const data = await response.json();
     setLevel(data.count);

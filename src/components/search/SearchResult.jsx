@@ -69,7 +69,6 @@ const obj = [];
 
 async function getMedicineInpo(serchKeyword, updateSearchObj, setEmpty) {
   try {
-    // const response = await fetch("json/search.json");
     const response = await fetch(`http://15.164.128.251:8080/main/search/${serchKeyword}`);
     const data = await response.json();
     if (data.length == 0) {
@@ -78,7 +77,6 @@ async function getMedicineInpo(serchKeyword, updateSearchObj, setEmpty) {
     updateSearchObj((arr) => (arr = []));
     data.forEach((obj) => {
       updateSearchObj((arr) => {
-        // arr = [];
         arr.push(obj);
       });
     });

@@ -24,9 +24,8 @@ export default function QuizBox() {
 async function GetQuizQuestion(userCount, question, answerArr, explanation, answer, userData, setQuizType) {
   try {
     const response = await fetch(`http://15.164.128.251:8080/main/quiz/${userData.loginid}`);
-    // const response = await fetch("json/quiz.json");
     const data = await response.json();
-
+    console.log(data);
     userCount(data.user.count);
 
     question(data.quiz.problem);

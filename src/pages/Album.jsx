@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Albumleft from "../components/album/AlbumLeft";
-// import AlbumFrame from "../components/album/AlbumLeft";
 import AlbumRight from "../components/album/AlbumRight";
 import Collection from "../components/album/Collection";
 import DetailedPage from "../components/album/DetailedPage";

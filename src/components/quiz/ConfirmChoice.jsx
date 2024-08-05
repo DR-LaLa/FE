@@ -4,14 +4,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function ConfirmChoice() {
-  const { userAnswer, setShowModal } = useContext(QuizContext);
+  const { setShowModal } = useContext(QuizContext);
   const navigate = useNavigate();
 
-  const { updateQuizObj } = useContext(QuizDescriptionContext);
+  const { updateQuizObj, quizObj } = useContext(QuizDescriptionContext);
 
   return (
     <ModalBox>
-      <h3>{`"${userAnswer.answer}"을/를 답으로 선택하시겠습니까?`}</h3>
+      <h3>{`"${quizObj.userAnswer.answer}"을/를 답으로 선택하시겠습니까?`}</h3>
       <section>
         <ButtonStyle
           $use={"cancel"}

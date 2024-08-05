@@ -1,11 +1,10 @@
 import { useContext, useEffect } from "react";
-import { USERDATA } from "../common/key";
-import { RankContext } from "../../context/context";
+import { IsLoginContext, RankContext } from "../../context/context";
 import styled from "styled-components";
 
 export default function TopRank() {
-  const userData = JSON.parse(localStorage.getItem(USERDATA));
-  const { users, updateUsers, myData, updateMyData, topRank, updateTopRank } = useContext(RankContext);
+  const { userData } = useContext(IsLoginContext);
+  const { updateUsers, updateMyData, topRank, updateTopRank } = useContext(RankContext);
 
   useEffect(() => {
     getUsersData(updateUsers, updateMyData, userData, updateTopRank);
@@ -38,29 +37,14 @@ export default function TopRank() {
 async function getUsersData(updateUsers, updateMyData, userData, updateTopRank) {
   try {
     const response = await fetch("http://15.164.128.251:8080/main/rank");
-    // const response = await fetch("json/rank.json");
     const data = await response.json();
     updateUsers((arr) => {
-      data.forEach((obj) => {
-        arr.push(obj);
-      });
-    });
-    let lank = 4;
-    let tmp = 0;
-    let myLank;
-    data.forEach((x, n) => {
-      if (tmp != x.count) {
-        tmp = x.count;
-        lank = n;
-      }
-      if (userData.loginid == x.loginid) {
-        myLank = lank;
-      }
+      Object.assign(arr, data);
     });
 
+    const tmp = data.filter((x) => x.loginid == userData.loginid)[0];
+    const lank = data.findIndex((x) => x.loginid == userData.loginid);
     updateMyData((obj) => {
-      const tmp = data.filter((x, n) => x.loginid == userData.loginid)[0];
-      const lank = data.findIndex((x, n) => x.loginid == userData.loginid);
       obj.lank = lank;
       obj.nickname = tmp.nickname;
       obj.count = tmp.count;
@@ -110,7 +94,4 @@ const RankBox = styled.section`
   flex-direction: column;
   justify-content: end;
   align-items: center;
-  /* position: absolute; */
-  /* left: ${(props) => props.$left + "vw"}; */
-  /* bottom: 18vh; */
 `;

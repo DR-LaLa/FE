@@ -15,14 +15,13 @@ export default function SignUpForm() {
   const [userPassWord, setUserPassWord] = useState("");
   const [duplication, setDuplication] = useState(true);
   const [duplicationState, setDuplicationState] = useState(false);
-  const [passwordCheck, setPasswordCheck] = useState("true");
+  const [passwordCheck, setPasswordCheck] = useState("none");
   const [isEmpty, setIsEmpty] = useState(false);
   const [disabled, setDisabled] = useState("false");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log(duplicationState);
     if (duplicationState && passwordCheck == "true" && signUpInpo.password === userPassWord) {
       setDisabled("true");
     } else {
@@ -58,9 +57,7 @@ export default function SignUpForm() {
               onClick={(e) => {
                 e.preventDefault();
                 if (signUpInpo.loginid != "") {
-                  // console.log(duplication);
                   duplicationCheck(signUpInpo.loginid, setDuplication, setDuplicationState);
-                  // console.log(duplication);
                 } else {
                   setIsEmpty(true);
                 }
@@ -111,7 +108,7 @@ export default function SignUpForm() {
             autoComplete="off"
           />
           <PasswordCheckTxt $flag={passwordCheck}>
-            {passwordCheck != "true" ? "비밀번호가 틀립니다" : "."}
+            {passwordCheck == "false" ? "비밀번호가 틀립니다" : "."}
           </PasswordCheckTxt>
         </section>
       </InputBoxStyle>
@@ -142,7 +139,6 @@ async function duplicationCheck(body, setDuplication, setDuplicationState) {
     let data = await response.json();
     setDuplication(data.isSuccess);
     setDuplicationState(true);
-    console.log("a");
   } catch (err) {
     console.log(err);
   }

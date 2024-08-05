@@ -46,6 +46,6 @@ export default function QuizProvider(props) {
 }
 
 const obj = {
-  answer: "a",
-  result: "b",
+  answer: "",
+  result: "",
 };

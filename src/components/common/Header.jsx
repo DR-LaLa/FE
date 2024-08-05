@@ -146,14 +146,11 @@ const iconArr = [
 const HeaderStyle = styled.header`
   ${(props) => {
     if (props.$currentPage == "/setting") {
-      console.log("a");
       return `width: ${props.$setAnime ? "16vw" : "30vw"};`;
     } else {
       if (props.$currentPage == "/" && props.$prevPage == "/setting") {
-        console.log(props.$setAnime);
         return `width: ${props.$setAnime ? "30vw" : "16vw"};`;
       }
-      console.log("c");
       return "width: 16vw;";
     }
   }}

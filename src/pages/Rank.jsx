@@ -5,8 +5,18 @@ import RankBox from "../components/rank/RankBox";
 import TopRank from "../components/rank/TopRank";
 import MainProvider from "../provider/MainProvider";
 import RankProvider from "../provider/RankProvider";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { IsLoginContext } from "../context/context";
 
 export default function Rank() {
+  const { userData } = useContext(IsLoginContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData.isLogin) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <MainProvider>
